@@ -1,40 +1,37 @@
+GIT
+  remote: git@github.com:Shopify/shopify_theme.git
+  revision: 2c7cb53ba3ee97c6c12d0cfd2d5896a5eeff7efd
+  specs:
+    shopify_theme (0.0.25)
+      filewatcher
+      httparty (~> 0.13.0)
+      json (~> 1.8.0)
+      launchy
+      mimemagic
+      thor (>= 0.14.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
-    coderay (1.1.0)
-    diff-lcs (1.2.5)
-    htmlentities (4.3.3)
-    method_source (0.8.2)
-    mini_portile (0.6.2)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
-    pry (0.10.1)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-    rspec (3.2.0)
-      rspec-core (~> 3.2.0)
-      rspec-expectations (~> 3.2.0)
-      rspec-mocks (~> 3.2.0)
-    rspec-core (3.2.0)
-      rspec-support (~> 3.2.0)
-    rspec-expectations (3.2.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.2.0)
-    rspec-mocks (3.2.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.2.0)
-    rspec-support (3.2.1)
-    slop (3.6.0)
+    addressable (2.3.8)
+    filewatcher (0.5.2)
+      trollop (~> 2.0)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.3)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    mimemagic (0.3.0)
+    multi_xml (0.5.5)
+    thor (0.19.1)
+    trollop (2.1.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  htmlentities
-  nokogiri
-  pry
-  rspec
+  shopify_theme!
 
 BUNDLED WITH
-   1.10.4
+   1.10.6
