@@ -37,7 +37,7 @@
   {% assign sold_out = false %}
 {% endif %}
 
-<div class="grid__item {{ grid_item_width }}">
+<div class="grid__item {{ grid_item_width }} masonry-item">
 
   {% comment %}
     Link to your product with the 'within: collection' filter for the link to be aware of the collection.
@@ -52,7 +52,7 @@
 
   {% endcomment %}
   <a href="{{ product.url | within: collection }}" class="grid__image">
-    <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+    <img src="{{ product.featured_image.src | img_url: 'master' }}" alt="{{ product.featured_image.alt | escape }}">
   </a>
 
   <p class="h6">
@@ -89,3 +89,15 @@
   </p>
 
 </div>
+
+<script>
+jQuery(document).ready(function($){
+  var $container = $("#masonry-grid");
+  // initialize Masonry after all images have loaded
+  $container.imagesLoaded( function() {
+    $container.masonry({
+      itemSelector: ".masonry-item",
+    });
+  });
+});
+</script>
