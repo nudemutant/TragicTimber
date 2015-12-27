@@ -1701,7 +1701,7 @@ label.error {
 /*============================================================================
   #Ajax Cart Styles (conditionally loaded)
 ==============================================================================*/
-{% if settings.ajax_cart_enable %}
+{% if settings.ajax_cart_method == "drawer" %}
 
 .ajaxcart__inner {
   margin-bottom: $gutter;
@@ -1835,4 +1835,4 @@ label.error {
   border-color: $colorDrawerBorder;
 }
 
-{% endif %} // settings.ajax_cart_enable
+{% endif %} // settings.ajax_cart_method
