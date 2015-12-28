@@ -653,6 +653,11 @@ $class-type: unquote(".");
 /*============================================================================
   #Masonry Grid
 ==============================================================================*/
+.masonry-grid__wrap {
+    padding-right: 4px;
+}
+
+.masonry-grid__sizer,
 .masonry-grid__item {
     width: 100%;
 
@@ -692,6 +697,13 @@ $class-type: unquote(".");
   #Product Thumbnail
   http://tympanus.net/codrops/2014/06/19/ideas-for-subtle-hover-effects/
 ==============================================================================*/
+.grid--full {
+    & >.masonry-grid__item {
+        padding-left: 4px;
+        margin-bottom: 4px;
+    }
+}
+
 .product-thumbnail figure {
     overflow: hidden;
     margin: 0;
@@ -720,8 +732,7 @@ $class-type: unquote(".");
 }
 
 /* Anchor will cover the whole item by default */
-/* For some effects it will show as a button */
-.product-thumbnail figure figcaption a {
+.product-thumbnail figure figcaption > a {
     z-index: 1000;
     text-indent: 200%;
     white-space: nowrap;
