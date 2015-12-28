@@ -13,7 +13,7 @@
   Use class grid-uniform to have evenly sized columns clear
   each other properly at each breakpoint.
 {% endcomment %}
-<div id="masonry-grid" class="grid-uniform">
+<div id="masonry-grid" class="grid--full">
 
   {% comment %}
     Loop through products in your Frontpage collection.
@@ -28,7 +28,7 @@
       Example:
         - {% assign grid_item_width = 'large--one-third medium--one-half' %}
     {% endcomment %}
-    {% assign grid_item_width = 'large--one-tenth medium--one-half' %}
+    {% assign grid_item_width = 'masonry-grid__item' %}
     {% include 'product-grid-item' %}
 
   {% else %}

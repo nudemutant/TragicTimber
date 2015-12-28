@@ -150,7 +150,7 @@
   </div>
   <div id="PageContainer" class="is-moved-by-drawer">
     <header class="site-header" role="banner">
-      <div class="wrapper">
+      <div class="">
 
         <div class="grid--full grid--table">
           <div class="grid__item large--one-half">
@@ -368,8 +368,6 @@
                 {% endfor %}
               </ul>
             {% endunless %}
-            <a href="http://shopify.com/timber">Timber Theme Framework</a> by <a href="http://www.shopify.com?ref=Timber" title="Shopify.com">Shopify</a><br>
-            <small>{{ powered_by_link }}</small>
           </div>
         </div>
       </div>
@@ -383,6 +381,19 @@
   {% comment %}
     Template-specific js
   {% endcomment %}
+  <script>
+    jQuery(document).ready(function($){
+      var $container = $("#masonry-grid");
+      // initialize Masonry after all images have loaded
+      $container.imagesLoaded( function() {
+        $container.masonry({
+          itemSelector: ".masonry-grid__item",
+          percentPosition: true
+        });
+      });
+    });
+  </script>
+
   <script>
     {% if resetPassword %}
       $(function() {

@@ -1,0 +1,38 @@
+/*============================================================================
+  #Masonry Grid
+==============================================================================*/
+.masonry-grid__item {
+    width: 100%;
+
+    @include at-query ($min, 500px) {
+        width: 50%;
+    }
+
+    @include at-query ($min, 750px) {
+        width: 33.333%;
+    }
+
+    @include at-query ($min, 1000px) {
+        width: 25%;
+    }
+
+    @include at-query ($min, 1250px) {
+        width: 20%;
+    }
+
+    @include at-query ($min, 1500px) {
+        width: 16.666%;
+    }
+
+    @include at-query ($min, 2000px) {
+        width: 14.286%;
+    }
+
+    @include at-query ($min, 2250px) {
+        width: 12.5%;
+    }
+
+    @include at-query ($min, 2500px) {
+        width: 10%;
+    }
+}

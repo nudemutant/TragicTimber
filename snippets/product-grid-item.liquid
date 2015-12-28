@@ -37,7 +37,7 @@
   {% assign sold_out = false %}
 {% endif %}
 
-<div class="grid__item {{ grid_item_width }} masonry-item">
+<div class="grid__item {{ grid_item_width }} product-thumbnail">
 
   {% comment %}
     Link to your product with the 'within: collection' filter for the link to be aware of the collection.
@@ -51,53 +51,16 @@
       - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
 
   {% endcomment %}
-  <a href="{{ product.url | within: collection }}" class="grid__image">
-    <img src="{{ product.featured_image.src | img_url: 'master' }}" alt="{{ product.featured_image.alt | escape }}">
-  </a>
+  <figure class="product-thumbnail__hover">
+    <img src="{{ product.featured_image.src | img_url: '1024x1024' }}" alt="{{ product.featured_image.alt | escape }}">
 
-  <p class="h6">
-    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-  </p>
-  <p>
-    {% comment %}
-      You can show a leading 'from' or 'up to' by checking 'product.price_varies'
-      if your variants have different prices.
-    {% endcomment %}
-    {% if on_sale %}
-      {% if product.price_varies %}
-        {% assign sale_price = product.price | money %}
-        {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
-      {% else %}
-        <strong>{{ 'products.product.on_sale' | t }}</strong>
-        {{ product.price | money }}
-      {% endif %}
-    {% else %}
-      {% if product.price_varies %}
-        {% assign price = product.price | money %}
-        {{ 'products.general.from_text_html' | t: price: price }}
-      {% else %}
-        {{ product.price | money }}
-      {% endif %}
-    {% endif %}
-    {% if sold_out %}
-      <br><strong>{{ 'products.product.sold_out' | t }}</strong>
-    {% endif %}
-    {% if on_sale %}
-      <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
-      <br><s>{{ product.compare_at_price | money }}</s>
-    {% endif %}
-  </p>
+    <figcaption>
+      <div class="project-title">
+        <h2>{{ product.title }}</h2>
+        <h3>view</h3>
+      </div>
+      <a href="{{ product.url | within: collection }}"></a>
+    </figcaption>
+  </figure>
 
 </div>
-
-<script>
-jQuery(document).ready(function($){
-  var $container = $("#masonry-grid");
-  // initialize Masonry after all images have loaded
-  $container.imagesLoaded( function() {
-    $container.masonry({
-      itemSelector: ".masonry-item",
-    });
-  });
-});
-</script>
