@@ -1,38 +1,57 @@
 /*============================================================================
   #Masonry Grid
 ==============================================================================*/
-.masonry-grid__item {
-    width: 100%;
+#grid[data-columns]::before {
 
-    @include at-query ($min, 500px) {
-        width: 50%;
+    @include at-query ($max, 499px) {
+        content: '1 .column.size-1of1';
     }
 
-    @include at-query ($min, 750px) {
-        width: 33.333%;
+    @include at-query (500px, 749px) {
+        content: '2 .column.size-1of2';
     }
 
-    @include at-query ($min, 1000px) {
-        width: 25%;
+    @include at-query (750px, 999px) {
+        content: '3 .column.size-1of3';
     }
 
-    @include at-query ($min, 1250px) {
-        width: 20%;
+    @include at-query (1000px, 1249px) {
+        content: '4 .column.size-1of4';
     }
 
-    @include at-query ($min, 1500px) {
-        width: 16.666%;
+    @include at-query (1250px, 1499px) {
+        content: '5 .column.size-1of5';
     }
 
-    @include at-query ($min, 2000px) {
-        width: 14.286%;
+    @include at-query (1500px, 1749px) {
+        content: '6 .column.size-1of6';
     }
 
-    @include at-query ($min, 2250px) {
-        width: 12.5%;
+    @include at-query (1750px, 1999px) {
+        content: '7 .column.size-1of7';
+    }
+
+    @include at-query (2000px, 2249px) {
+        content: '8 .column.size-1of8';
+    }
+
+    @include at-query (2250px, 2499px) {
+        content: '9 .column.size-1of9';
     }
 
     @include at-query ($min, 2500px) {
-        width: 10%;
+        content: '10 .column.size-1of10';
     }
 }
+
+.column { float: left; }
+.size-1of1 { width: 100%; }
+.size-1of2 { width: 50%; }
+.size-1of3 { width: 33.333%; }
+.size-1of4 { width: 25%; }
+.size-1of5 { width: 20%; }
+.size-1of6 { width: 16.666%; }
+.size-1of7 { width: 14.286%; }
+.size-1of8 { width: 12.5%; }
+.size-1of9 { width: 11.111%; }
+.size-1of10 { width: 10%; }

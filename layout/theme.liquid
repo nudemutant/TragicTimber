@@ -381,18 +381,7 @@
   {% comment %}
     Template-specific js
   {% endcomment %}
-  <script>
-    jQuery(document).ready(function($){
-      var $container = $("#masonry-grid");
-      // initialize Masonry after all images have loaded
-      $container.imagesLoaded( function() {
-        $container.masonry({
-          itemSelector: ".masonry-grid__item",
-          percentPosition: true
-        });
-      });
-    });
-  </script>
+  {{ 'salvattore.min.js' | asset_url | script_tag }}
 
   <script>
     {% if resetPassword %}
