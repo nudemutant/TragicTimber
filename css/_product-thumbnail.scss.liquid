@@ -2,30 +2,31 @@
   #Product Thumbnail
   http://tympanus.net/codrops/2014/06/19/ideas-for-subtle-hover-effects/
 ==============================================================================*/
-.product-thumbnail {
-    padding-left: 4px;
-    margin-bottom: 4px;
-}
+.product-thumbnail__wrap {}
 
-.product-thumbnail figure {
+.product-thumbnail {
     overflow: hidden;
     margin: 0;
     cursor: pointer;
 }
 
-.product-thumbnail figure img {
+.product-thumbnail img {
     display: block;
     opacity: 1;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: scale(1);
+    transform: scale(1);
 }
 
-.product-thumbnail figure figcaption {
+.project-title__wrap {
     color: #fff;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
 
-.product-thumbnail figure figcaption,
-.product-thumbnail figure figcaption a {
+.project-title__wrap,
+.project-title__wrap a {
     position: absolute;
     top: 0;
     left: 0;
@@ -34,7 +35,7 @@
 }
 
 /* Anchor will cover the whole item by default */
-.product-thumbnail figure figcaption > a {
+.project-title__wrap > a {
     z-index: 1000;
     text-indent: 200%;
     white-space: nowrap;
@@ -42,35 +43,22 @@
     opacity: 0;
 }
 
-/*---------------*/
-/***** Chico *****/
-/*---------------*/
-
-figure.product-thumbnail__hover img {
+.project-title {
+    opacity: 0;
     -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
     transition: opacity 0.35s, transform 0.35s;
-    -webkit-transform: scale(1);
-    transform: scale(1);
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
 }
 
-figure.product-thumbnail__hover:hover img {
+/* Hover effect */
+.product-thumbnail:hover img {
     opacity: 0.5;
     -webkit-transform: scale(1.5);
     transform: scale(1.5);
 }
 
-figure.product-thumbnail__hover .project-title {
-    opacity: 0;
-    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-    transition: opacity 0.35s, transform 0.35s;
-}
-
-figure.product-thumbnail__hover .project-title {
-    -webkit-transform: scale(1.5);
-    transform: scale(1.5);
-}
-
-figure.product-thumbnail__hover:hover .project-title {
+.product-thumbnail:hover .project-title {
     opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1);

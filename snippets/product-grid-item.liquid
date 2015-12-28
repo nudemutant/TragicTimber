@@ -37,7 +37,7 @@
   {% assign sold_out = false %}
 {% endif %}
 
-<div class="{{ grid_item_width }} product-thumbnail">
+<div class="{{ grid_item_width }} product-thumbnail__wrap">
 
   {% comment %}
     Link to your product with the 'within: collection' filter for the link to be aware of the collection.
@@ -51,16 +51,16 @@
       - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
 
   {% endcomment %}
-  <figure class="product-thumbnail__hover">
+  <div class="product-thumbnail">
     <img src="{{ product.featured_image.src | img_url: '1024x1024' }}" alt="{{ product.featured_image.alt | escape }}">
 
-    <figcaption>
+    <div class="project-title__wrap">
       <div class="project-title">
         <h2>{{ product.title }}</h2>
         <h3>view</h3>
       </div>
       <a href="{{ product.url | within: collection }}"></a>
-    </figcaption>
-  </figure>
+    </div>
+  </div>
 
 </div>
