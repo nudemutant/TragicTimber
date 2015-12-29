@@ -8,25 +8,50 @@
     overflow: hidden;
     margin: 0;
     cursor: pointer;
-}
 
-.product-thumbnail img {
-    display: block;
-    opacity: 1;
-    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-    transition: opacity 0.35s, transform 0.35s;
-    -webkit-transform: scale(1);
-    transform: scale(1);
+    img {
+        display: block;
+        opacity: 1;
+        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+        transition: opacity 0.35s, transform 0.35s;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        text-indent: 200%;
+        white-space: nowrap;
+        font-size: 0;
+        opacity: 0;
+    }
+
+    &:hover {
+        background-color: #4c4b40; //need a variable!
+
+        img {
+            opacity: 0.4;
+            -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+        }
+
+        .project-title {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+    }
 }
 
 .project-title__wrap {
     color: #fff;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-}
-
-.project-title__wrap,
-.project-title__wrap a {
     position: absolute;
     top: 0;
     left: 0;
@@ -34,32 +59,23 @@
     height: 100%;
 }
 
-/* Anchor will cover the whole item by default */
-.project-title__wrap > a {
-    z-index: 1000;
-    text-indent: 200%;
-    white-space: nowrap;
-    font-size: 0;
-    opacity: 0;
-}
-
 .project-title {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    text-align: center;
     opacity: 0;
     -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
     transition: opacity 0.35s, transform 0.35s;
     -webkit-transform: scale(1.5);
     transform: scale(1.5);
-}
 
-/* Hover effect */
-.product-thumbnail:hover img {
-    opacity: 0.5;
-    -webkit-transform: scale(1.5);
-    transform: scale(1.5);
-}
+    h2 {
+        font-size: 18px; //need a variable!
+    }
 
-.product-thumbnail:hover .project-title {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
+    h3 {
+        color: #fffcd5; //need a variable!
+        font-size: 15px; //need a variable!
+    }
 }
