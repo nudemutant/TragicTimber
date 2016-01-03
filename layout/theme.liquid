@@ -391,8 +391,10 @@
     });
     // layout Masonry after each image loads
     $grid.imagesLoaded( function() {
+      $('.site-footer').show();
+      // fade in image thumbnails
       $('.masonry-grid__item').each(function(i) {
-        $(this).delay((i++) * 10).fadeTo(250, 1); })
+        $(this).delay((i++) * 25).fadeTo(250, 1); })
       }).progress( function() {
       $grid.masonry('layout');
     });

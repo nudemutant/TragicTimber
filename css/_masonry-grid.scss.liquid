@@ -1,14 +1,16 @@
 /*============================================================================
   #Masonry Grid
 ==============================================================================*/
+$gridBorder: 4px;
+
 .masonry-grid__wrap {
-    padding-right: 4px;
+    padding-right: $gridBorder;
 }
 
 .masonry-grid__item {
     float: left;
-    padding-left: 4px;
-    margin-bottom: 4px;
+    padding-left: $gridBorder;
+    margin-bottom: $gridBorder;
     width: 100%;
     opacity: 0;
 
@@ -46,5 +48,13 @@
 
     @include at-query ($min, 2750px) {
         width: 10%;
+    }
+
+    @include at-query ($min, 3000px) {
+        width: 9.091%%;
+    }
+
+    @include at-query ($min, 3250px) {
+        width: 8.333%;
     }
 }

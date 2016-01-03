@@ -1,0 +1,13 @@
+/*============================================================================
+  #Site Footer
+==============================================================================*/
+.site-footer {
+  display: none;
+  background-color: $colorFooterBg;
+  padding: $gutter 0;
+  color: $colorFooterText;
+
+  @include at-query ($min, $large) {
+    padding: ($gutter * 2) 0;
+  }
+}
