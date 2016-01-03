@@ -27,6 +27,11 @@ $breakpoint-has-pull:  ('medium', 'medium-down', 'large');
 /*============================================================================
   #General Variables
 ==============================================================================*/
+// Tragic Sunshine colors
+$orangeSunshine: #f05722;
+$yellowSunshine: #fffbd5;
+$tragicLight: #b4b08b;
+$tragicDark: #4c4b40;
 
 // Timber Colors
 $colorPrimary: {{ settings.color_primary }};
@@ -57,11 +62,11 @@ $colorBody: {{ settings.color_body_bg }};
 $colorBorder: {{ settings.color_borders }};
 
 // Nav and dropdown link background
-$colorNav: #f2f2f2;
+$colorNav: $colorBody;
 $colorNavText: #333;
 
 // Site Footer
-$colorFooterBg: {{ settings.color_footer_bg }};
+$colorFooterBg: $colorBody; //{{ settings.color_footer_bg }};
 $colorFooterText: {{ settings.color_footer_text }};
 
 // Logo max width
@@ -819,9 +824,11 @@ html input[disabled] {
 }
 
 .masonry-grid__item {
+    float: left;
     padding-left: 4px;
     margin-bottom: 4px;
     width: 100%;
+    opacity: 0;
 
     @include at-query ($min, 500px) {
         width: 50%;
@@ -1096,6 +1103,7 @@ html input[disabled] {
     cursor: pointer;
 
     img {
+        width: 100%;
         display: block;
         opacity: 1;
         -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
@@ -2015,6 +2023,7 @@ label.error {
   #Site Footer
 ==============================================================================*/
 .site-footer {
+  display: none;
   background-color: $colorFooterBg;
   padding: $gutter 0;
   color: $colorFooterText;

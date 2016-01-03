@@ -6,9 +6,11 @@
 }
 
 .masonry-grid__item {
+    float: left;
     padding-left: 4px;
     margin-bottom: 4px;
     width: 100%;
+    opacity: 0;
 
     @include at-query ($min, 500px) {
         width: 50%;
