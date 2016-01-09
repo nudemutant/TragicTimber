@@ -63,7 +63,7 @@ $colorBorder: {{ settings.color_borders }};
 
 // Nav and dropdown link background
 $colorNav: $colorBody;
-$colorNavText: #333;
+$colorNavText: $orangeSunshine;
 
 // Site Footer
 $colorFooterBg: $colorBody;
@@ -71,7 +71,8 @@ $colorFooterBg: $colorBody;
 $colorFooterText: {{ settings.color_footer_text }};
 
 // Logo max width
-$logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
+$logoMaxWidth: 100%;
+//$logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
 
 // Helper colors
 $disabledGrey: #f6f6f6;
@@ -101,8 +102,8 @@ $zindexDrawer: 10;
 
 /*================ Typography ================*/
 
-$headerFontStack: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$headerFontWeight: 700;
+$headerFontStack: 'Poppins', sans-serif;
+$headerFontWeight: 600;
 
 $bodyFontStack: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $baseFontSize: 14px; // Henseforth known as 1em
@@ -118,6 +119,9 @@ $baseFontSize: 14px; // Henseforth known as 1em
   font-style: normal;
 }
 $socialIconFontStack: 'icons';
+
+$normal: 400;
+$bold: 600;
 
 
 /*============================================================================
@@ -982,7 +986,7 @@ html input[disabled] {
   #Site Header
 ==============================================================================*/
 .site-header {
-  padding: ($gutter / 2) 0;
+  padding: 0;
 
   .grid--table {
     display: table;
@@ -1052,6 +1056,7 @@ $gridBorder: 4px;
 
 .masonry-grid__wrap {
     padding-right: $gridBorder;
+    margin-top: $gridBorder;
 }
 
 .masonry-grid__item {
@@ -1151,7 +1156,11 @@ $gridBorder: 4px;
 }
 
 .site-nav {
-  font-size: em(16px);
+  font-size: em(14px);
+  font-family: $headerFontStack;
+  font-weight: $bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   cursor: default;
   margin: 0 0 0 (-$gutter / 2);
 
@@ -1478,7 +1487,7 @@ body {
 
 .main-content {
   display: block;
-  margin-top: $gutter;
+  margin-top: 0;
   padding-bottom: $gutter * 2;
 }
 
