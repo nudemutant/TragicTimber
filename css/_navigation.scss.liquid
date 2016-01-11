@@ -4,34 +4,48 @@
 
 // We are styling all nav the same,
 // so here are some placeholders to do just that
+$navBorderSize: 2px;
 
 %site-nav {
-  font-size: em(12px);
   font-family: $headerFontStack;
   font-weight: $bold;
   letter-spacing: $siteKerning;
   text-transform: uppercase;
-
-  @include at-query ($min, $xxlarge) {
-    font-size: em(14px);
-  }
 }
 
 %site-nav__link {
+  font-size: em(12px);
   display: block;
   text-decoration: none;
   padding: $gutter / 5;
   white-space: nowrap;
   color: $colorNavText;
-  border: 2px solid transparent;
 
-  &:hover,
-  &:active,
-  &:focus {
-    color: darken($colorNavText, 15%);
+  @include at-query ($min, $large) {
+    // Border transition
+    vertical-align: middle;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition-duration: $transitionTime;
+    transition-duration: $transitionTime;
+    -webkit-transition-property: box-shadow;
+    transition-property: box-shadow;
+    box-shadow: inset 0 0 0 $navBorderSize transparent, 0 0 1px rgba(0, 0, 0, 0);
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $colorNavText;
+      box-shadow: inset 0 0 0 $navBorderSize $tragicDark, 0 0 1px rgba(0, 0, 0, 0);
+    }
   }
 
   @include at-query ($min, $xxlarge) {
+    font-size: em(14px);
     padding: ($gutter / 5) ($gutter / 3);
   }
 }
@@ -43,7 +57,7 @@
 .site-nav {
   @extend %site-nav;
   cursor: default;
-  margin: 0 0 0 (-$gutter / 2);
+  margin: 0;
 
   li {
     margin: 0;
@@ -57,7 +71,7 @@
     &.site-nav--active {
       & > .site-nav__link {
         color: $tragicDark;
-        border: 2px solid $tragicDark;
+        box-shadow: inset 0 0 0 $navBorderSize $tragicDark, 0 0 1px rgba(0, 0, 0, 0);
       }
     }
   }
@@ -78,7 +92,11 @@
   @extend .site-nav;
 
   .text-right & {
-    margin: 0 (-$gutter / 2) 0 0;
+    //margin: 0 (-$gutter / 2) 0 0;
+  }
+
+  .site-nav__link {
+    font-size: em(22px);
   }
 }
 
@@ -98,28 +116,78 @@
 }
 
 /*================ Dropdowns ================*/
+.site-nav--has-dropdown {
+  position: relative;
+
+  &:after {
+    visibility: hidden;
+    transition: all $transitionTime ease 0s, visibility 0s linear $transitionTime;
+    opacity: 0;
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 5px 5px 0;
+    border-color: $colorBody transparent;
+    width: 0;
+    z-index: 5;
+    margin-left: -5px;
+    bottom: -3px;
+    left: 50%;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    &:after {
+      visibility: visible;
+      opacity: 1;
+      transition-delay: 0s;
+    }
+  }
+}
+
 .site-nav__dropdown {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
   position: absolute;
   left: 0;
-  margin: 0;
+  margin: -($navBorderSize) 0 0;
   z-index: $zindexNavDropdowns;
+  transform: translateZ(0);
+  transform: translateY(10%);
+  transition: all 0.5s ease 0s, visibility 0s linear 0.5s;
 
   .supports-no-touch .site-nav--has-dropdown:hover &,
   .site-nav--has-dropdown.nav-hover &,
   .nav-focus + & {
-    display: block;
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0%);
+    transition-delay: 0s;
   }
 
   a {
     color: $yellowSunshine;
     background-color: $tragicDark;
+    -webkit-transition-duration: $transitionTime;
+    transition-duration: $transitionTime;
+    -webkit-transition-property: color, background-color;
+    transition-property: color, background-color;
 
     &:hover,
     &:active,
     &:focus {
-      color: darken($yellowSunshine, 15%);
+      color: $yellowSunshine;
+      box-shadow: none;
       background-color: darken($tragicDark, 10%);
+    }
+  }
+
+  li {
+    &:first-child {
+      a {
+        padding-top: $gutter / 3;
+      }
     }
   }
 }
@@ -196,12 +264,12 @@
   &:hover,
   &:active,
   &:focus {
-    color: darken($colorDrawerText, 15%);
+    color: $colorDrawerText;
   }
 
   &:active,
   &:focus {
-    background-color: darken($colorDrawers, 5%);
+    background-color: $colorDrawers;
   }
 }
 

@@ -30,6 +30,10 @@ html input[disabled] {
   @include user-select(none);
   -webkit-appearance: none;
   -moz-appearance: none;
+  -webkit-transition-duration: $transitionTime;
+  transition-duration: $transitionTime;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
 
   /*================ Set primary button colors - can override later ================*/
   background-color: $colorBtnPrimary;

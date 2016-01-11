@@ -129,6 +129,9 @@ $bold: 600;
 
 $siteKerning: 2px;
 
+/*================ Animation ================*/
+
+$transitionTime: 0.35s;
 
 /*============================================================================
   #Sass Mixins
@@ -975,6 +978,10 @@ html input[disabled] {
   @include user-select(none);
   -webkit-appearance: none;
   -moz-appearance: none;
+  -webkit-transition-duration: $transitionTime;
+  transition-duration: $transitionTime;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
 
   /*================ Set primary button colors - can override later ================*/
   background-color: $colorBtnPrimary;
@@ -1236,12 +1243,12 @@ html input[disabled] {
 
 .ajaxcart__qty-num {
   border-color: $colorDrawerBorder;
-  color: $colorDrawerText;
+  color: $colorTextBody;
 }
 
 .ajaxcart__qty-adjust {
   @extend .js-qty__adjust;
-  color: $colorDrawerText;
+  color: $colorTextBody;
 }
 
 .ajaxcart__qty--plus {
@@ -1285,7 +1292,7 @@ html input[disabled] {
 
     &:hover,
     &:focus {
-      opacity: 0.7;
+      opacity: 1;
     }
   }
 
@@ -1395,8 +1402,6 @@ html input[disabled] {
   #Site Header
 ==============================================================================*/
 .site-header {
-  padding: 0 $gutter;
-
   .grid--table {
     display: table;
     table-layout: fixed;
@@ -1407,10 +1412,6 @@ html input[disabled] {
       display: table-cell;
       vertical-align: middle;
     }
-  }
-
-  @include at-query ($min, $xxlarge) {
-    padding: 0 ($gutter * 1.5);
   }
 }
 
@@ -1468,6 +1469,127 @@ html input[disabled] {
   @include at-query ($max, $medium) {
     margin-left: auto;
     margin-right: auto;
+  }
+}
+/*============================================================================
+  #Icons
+==============================================================================*/
+.icon-fallback-text .icon {
+  display: none;
+
+  .supports-fontface & {
+    display: inline-block;
+  }
+}
+
+/*============================================================================
+  A generic way to visually hide content while
+  remaining accessible to screen readers (h5bp.com)
+==============================================================================*/
+.supports-fontface .icon-fallback-text .fallback-text {
+  @extend .visually-hidden;
+}
+
+.icon:before {
+  display: none;
+}
+
+.supports-fontface .icon:before {
+  display: inline;
+  font-family: $socialIconFontStack;
+  text-decoration: none;
+  speak: none; // future fallback, limited in effect currently
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*================ Icon mapping ================*/
+.icon-amazon_payments:before { content: "\e800"; }
+.icon-american_express:before { content: "\41"; }
+.icon-arrow-down:before { content: "\e607"; }
+.icon-bitcoin:before { content: "\42"; }
+.icon-cart:before { content: "\e600"; }
+.icon-cirrus:before { content: "\43"; }
+.icon-dankort:before { content: "\64"; }
+.icon-diners_club:before { content: "\63"; }
+.icon-discover:before { content: "\44"; }
+.icon-facebook:before { content: "\66"; }
+.icon-fancy:before { content: "\46"; }
+.icon-flickr:before { content: "\e903"; }
+.icon-google:before { content: "\67"; }
+.icon-google_wallet:before { content: "\47"; }
+.icon-grid-view:before { content: "\e603"; }
+.icon-hamburger:before { content: "\e601"; }
+.icon-instagram:before { content: "\69"; }
+.icon-interac:before { content: "\49"; }
+.icon-jcb:before { content: "\4a"; }
+.icon-list-view:before { content: "\e604"; }
+.icon-maestro:before { content: "\6d"; }
+.icon-master:before { content: "\4d"; }
+.icon-minus:before { content: "\e602"; }
+.icon-paypal:before { content: "\50"; }
+.icon-pinterest:before { content: "\70"; }
+.icon-plus:before { content: "\e605"; }
+.icon-rss:before { content: "\72"; }
+.icon-search:before { content: "\73"; }
+.icon-stripe:before { content: "\53"; }
+.icon-tumblr:before { content: "\e904"; }
+.icon-twitter:before { content: "\54"; }
+.icon-vimeo:before { content: "\76"; }
+.icon-visa:before { content: "\56"; }
+.icon-x:before { content: "\e606"; }
+.icon-youtube:before { content: "\79"; }
+.icon-prev:before { content: "\e902"; }
+.icon-next:before { content: "\e901"; }
+
+.payment-icons {
+  @include user-select(none);
+  cursor: default;
+
+  li {
+    margin: 0 ($gutter / 4) ($gutter / 4);
+    color: {{ settings.color_footer_social_link }};
+    cursor: default;
+  }
+
+  .icon {
+    font-size: 30px;
+    line-height: 30px;
+  }
+
+  .fallback-text {
+    text-transform: capitalize;
+  }
+}
+
+.social-icons li {
+  margin: 0 ($gutter / 2) ($gutter / 2);
+  vertical-align: middle;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @include at-query ($min, $postSmall) {
+    margin-left: 0;
+  }
+
+  .icon {
+    font-size: 30px;
+    line-height: 26px;
+  }
+
+  a {
+    color: $tragicDark;
+
+    &:hover {
+      color: darken($tragicDark, 10%);
+    }
   }
 }
 /*============================================================================
@@ -1592,34 +1714,48 @@ $gridBorder: 4px;
 
 // We are styling all nav the same,
 // so here are some placeholders to do just that
+$navBorderSize: 2px;
 
 %site-nav {
-  font-size: em(12px);
   font-family: $headerFontStack;
   font-weight: $bold;
   letter-spacing: $siteKerning;
   text-transform: uppercase;
-
-  @include at-query ($min, $xxlarge) {
-    font-size: em(14px);
-  }
 }
 
 %site-nav__link {
+  font-size: em(12px);
   display: block;
   text-decoration: none;
   padding: $gutter / 5;
   white-space: nowrap;
   color: $colorNavText;
-  border: 2px solid transparent;
 
-  &:hover,
-  &:active,
-  &:focus {
-    color: darken($colorNavText, 15%);
+  @include at-query ($min, $large) {
+    // Border transition
+    vertical-align: middle;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition-duration: $transitionTime;
+    transition-duration: $transitionTime;
+    -webkit-transition-property: box-shadow;
+    transition-property: box-shadow;
+    box-shadow: inset 0 0 0 $navBorderSize transparent, 0 0 1px rgba(0, 0, 0, 0);
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $colorNavText;
+      box-shadow: inset 0 0 0 $navBorderSize $tragicDark, 0 0 1px rgba(0, 0, 0, 0);
+    }
   }
 
   @include at-query ($min, $xxlarge) {
+    font-size: em(14px);
     padding: ($gutter / 5) ($gutter / 3);
   }
 }
@@ -1631,7 +1767,7 @@ $gridBorder: 4px;
 .site-nav {
   @extend %site-nav;
   cursor: default;
-  margin: 0 0 0 (-$gutter / 2);
+  margin: 0;
 
   li {
     margin: 0;
@@ -1645,7 +1781,7 @@ $gridBorder: 4px;
     &.site-nav--active {
       & > .site-nav__link {
         color: $tragicDark;
-        border: 2px solid $tragicDark;
+        box-shadow: inset 0 0 0 $navBorderSize $tragicDark, 0 0 1px rgba(0, 0, 0, 0);
       }
     }
   }
@@ -1666,7 +1802,11 @@ $gridBorder: 4px;
   @extend .site-nav;
 
   .text-right & {
-    margin: 0 (-$gutter / 2) 0 0;
+    //margin: 0 (-$gutter / 2) 0 0;
+  }
+
+  .site-nav__link {
+    font-size: em(22px);
   }
 }
 
@@ -1686,28 +1826,78 @@ $gridBorder: 4px;
 }
 
 /*================ Dropdowns ================*/
+.site-nav--has-dropdown {
+  position: relative;
+
+  &:after {
+    visibility: hidden;
+    transition: all $transitionTime ease 0s, visibility 0s linear $transitionTime;
+    opacity: 0;
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 5px 5px 0;
+    border-color: $colorBody transparent;
+    width: 0;
+    z-index: 5;
+    margin-left: -5px;
+    bottom: -3px;
+    left: 50%;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    &:after {
+      visibility: visible;
+      opacity: 1;
+      transition-delay: 0s;
+    }
+  }
+}
+
 .site-nav__dropdown {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
   position: absolute;
   left: 0;
-  margin: 0;
+  margin: -($navBorderSize) 0 0;
   z-index: $zindexNavDropdowns;
+  transform: translateZ(0);
+  transform: translateY(10%);
+  transition: all 0.5s ease 0s, visibility 0s linear 0.5s;
 
   .supports-no-touch .site-nav--has-dropdown:hover &,
   .site-nav--has-dropdown.nav-hover &,
   .nav-focus + & {
-    display: block;
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0%);
+    transition-delay: 0s;
   }
 
   a {
     color: $yellowSunshine;
     background-color: $tragicDark;
+    -webkit-transition-duration: $transitionTime;
+    transition-duration: $transitionTime;
+    -webkit-transition-property: color, background-color;
+    transition-property: color, background-color;
 
     &:hover,
     &:active,
     &:focus {
-      color: darken($yellowSunshine, 15%);
+      color: $yellowSunshine;
+      box-shadow: none;
       background-color: darken($tragicDark, 10%);
+    }
+  }
+
+  li {
+    &:first-child {
+      a {
+        padding-top: $gutter / 3;
+      }
     }
   }
 }
@@ -1784,12 +1974,12 @@ $gridBorder: 4px;
   &:hover,
   &:active,
   &:focus {
-    color: darken($colorDrawerText, 15%);
+    color: $colorDrawerText;
   }
 
   &:active,
   &:focus {
-    background-color: darken($colorDrawers, 5%);
+    background-color: $colorDrawers;
   }
 }
 
@@ -1867,8 +2057,8 @@ $gridBorder: 4px;
         width: 100%;
         display: block;
         opacity: 1;
-        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-        transition: opacity 0.35s, transform 0.35s;
+        -webkit-transition: opacity $transitionTime, -webkit-transform $transitionTime;
+        transition: opacity $transitionTime, transform $transitionTime;
         -webkit-transform: scale(1);
         transform: scale(1);
     }
@@ -1920,18 +2110,18 @@ $gridBorder: 4px;
     width: 100%;
     text-align: center;
     opacity: 0;
-    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transition: opacity $transitionTime, -webkit-transform $transitionTime;
+    transition: opacity $transitionTime, transform $transitionTime;
     -webkit-transform: scale(1.5);
     transform: scale(1.5);
 
     h2 {
-        font-size: 18px; //need a variable!
+        font-size: em(18px); //need a variable!
     }
 
     h3 {
         color: $yellowSunshine;
-        font-size: 15px; //need a variable!
+        font-size: em(15px); //need a variable!
     }
 }
 /*============================================================================
@@ -1947,6 +2137,19 @@ body {
 
 [tabindex='-1']:focus {
   outline: none;
+}
+
+.full-width-wrapper {
+  max-width: 100%;
+  padding: 0 ($gutter / 2);
+
+  @include at-query ($min, $small) {
+    padding: 0 $gutter;
+  }
+
+  @include at-query ($min, $xxlarge) {
+    padding: 0 ($gutter * 1.5);
+  }
 }
 
 .wrapper {
@@ -1968,8 +2171,6 @@ body {
   max-width: $siteWidth / 3;
 
   @include at-query ($max, $medium) {
-    max-width: 100%;
-    padding: 0 $gutter 0 ($gutter * 2);
   }
 }
 
@@ -2543,121 +2744,6 @@ label.error {
 }
 
 /*============================================================================
-  #Icons
-==============================================================================*/
-.icon-fallback-text .icon {
-  display: none;
-
-  .supports-fontface & {
-    display: inline-block;
-  }
-}
-
-/*============================================================================
-  A generic way to visually hide content while
-  remaining accessible to screen readers (h5bp.com)
-==============================================================================*/
-.supports-fontface .icon-fallback-text .fallback-text {
-  @extend .visually-hidden;
-}
-
-.icon:before {
-  display: none;
-}
-
-.supports-fontface .icon:before {
-  display: inline;
-  font-family: $socialIconFontStack;
-  text-decoration: none;
-  speak: none; // future fallback, limited in effect currently
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/*================ Icon mapping ================*/
-.icon-amazon_payments:before { content: "\e800"; }
-.icon-american_express:before { content: "\41"; }
-.icon-arrow-down:before { content: "\e607"; }
-.icon-bitcoin:before { content: "\42"; }
-.icon-cart:before { content: "\e600"; }
-.icon-cirrus:before { content: "\43"; }
-.icon-dankort:before { content: "\64"; }
-.icon-diners_club:before { content: "\63"; }
-.icon-discover:before { content: "\44"; }
-.icon-facebook:before { content: "\66"; }
-.icon-fancy:before { content: "\46"; }
-.icon-google:before { content: "\67"; }
-.icon-google_wallet:before { content: "\47"; }
-.icon-grid-view:before { content: "\e603"; }
-.icon-hamburger:before { content: "\e601"; }
-.icon-instagram:before { content: "\69"; }
-.icon-interac:before { content: "\49"; }
-.icon-jcb:before { content: "\4a"; }
-.icon-list-view:before { content: "\e604"; }
-.icon-maestro:before { content: "\6d"; }
-.icon-master:before { content: "\4d"; }
-.icon-minus:before { content: "\e602"; }
-.icon-paypal:before { content: "\50"; }
-.icon-pinterest:before { content: "\70"; }
-.icon-plus:before { content: "\e605"; }
-.icon-rss:before { content: "\72"; }
-.icon-search:before { content: "\73"; }
-.icon-stripe:before { content: "\53"; }
-.icon-tumblr:before { content: "\74"; }
-.icon-twitter:before { content: "\54"; }
-.icon-vimeo:before { content: "\76"; }
-.icon-visa:before { content: "\56"; }
-.icon-x:before { content: "\e606"; }
-.icon-youtube:before { content: "\79"; }
-
-.payment-icons {
-  @include user-select(none);
-  cursor: default;
-
-  li {
-    margin: 0 ($gutter / 4) ($gutter / 4);
-    color: {{ settings.color_footer_social_link }};
-    cursor: default;
-  }
-
-  .icon {
-    font-size: 30px;
-    line-height: 30px;
-  }
-
-  .fallback-text {
-    text-transform: capitalize;
-  }
-}
-
-.social-icons li {
-  margin: 0 ($gutter / 2) ($gutter / 2);
-  vertical-align: middle;
-
-  @include at-query ($min, $postSmall) {
-    margin-left: 0;
-  }
-
-  .icon {
-    font-size: 30px;
-    line-height: 26px;
-  }
-
-  a {
-    color: {{ settings.color_footer_social_link }};
-
-    &:hover {
-      color: darken({{ settings.color_footer_social_link }}, 10%);
-    }
-  }
-}
-
-/*============================================================================
   #Pagination
 ==============================================================================*/
 .pagination {
@@ -2759,6 +2845,7 @@ label.error {
 .slick-slider {
     position: relative;
     display: block;
+    padding: 0;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     -webkit-touch-callout: none;
@@ -2770,6 +2857,10 @@ label.error {
     -ms-touch-action: pan-y;
     touch-action: pan-y;
     -webkit-tap-highlight-color: transparent;
+
+    @include at-query ($min, $small) {
+        padding: 0 $gutter;
+    }
 }
 .slick-list {
     position: relative;
@@ -2859,70 +2950,78 @@ label.error {
 
 .slick-prev,
 .slick-next {
-    position: absolute;
-    display: block;
-    height: 20px;
-    width: 20px;
-    line-height: 0px;
-    font-size: 0px;
-    cursor: pointer;
-    background: transparent;
-    color: transparent;
-    top: 50%;
-    margin-top: -10px\9; /*lte IE 8*/
-    -webkit-transform: translate(0, -50%);
-    -ms-transform: translate(0, -50%);
-    transform: translate(0, -50%);
-    padding: 0;
-    border: none;
-    outline: none;
-    &:hover, &:focus {
-        outline: none;
+    display: none!important;
+
+    @include at-query ($min, $small) {
+        display: block!important;
+        position: absolute;
+        z-index: 1;
+        height: 20px;
+        width: 20px;
+        line-height: 0px;
+        font-size: 0px;
+        cursor: pointer;
         background: transparent;
         color: transparent;
-        &:before {
-            //opacity: $slick-opacity-on-hover;
+        top: 50%;
+        margin-top: -10px\9; /*lte IE 8*/
+        -webkit-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+        padding: 0;
+        border: none;
+        outline: none;
+        &:hover, &:focus {
+            outline: none;
+            background: transparent;
+            color: transparent;
+            &:before {
+                color: darken($tragicLight, 15%);
+            }
         }
-    }
-    &.slick-disabled:before {
-        //opacity: $slick-opacity-not-active;
+        &.slick-disabled:before {
+            //opacity: $slick-opacity-not-active;
+        }
     }
 }
 
 .slick-prev:before, .slick-next:before {
-    //font-family: $slick-font-family;
+    font-family: $socialIconFontStack;
     font-size: 20px;
     line-height: 1;
-    color: red;
-    //opacity: $slick-opacity-default;
+    color: $tragicLight;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-transition-duration: $transitionTime;
+    transition-duration: $transitionTime;
+    -webkit-transition-property: color, background-color;
+    transition-property: color, background-color;
 }
 
 .slick-prev {
-    left: -25px;
+    left: 0;
     [dir="rtl"] & {
         left: auto;
-        right: -25px;
+        right: 0;
     }
     &:before {
-        content: "prev";
+        content: "\e902";
         [dir="rtl"] & {
-            content: "next";
+            content: "\e901";
         }
     }
 }
 
 .slick-next {
-    right: -25px;
+    right: 0;
     [dir="rtl"] & {
-        left: -25px;
+        left: 0;
         right: auto;
     }
     &:before {
-        content: "next";
+        content: "\e901";
         [dir="rtl"] & {
-            content: "prev";
+            content: "\e902";
         }
     }
 }
@@ -2963,16 +3062,19 @@ label.error {
             color: transparent;
             padding: 5px;
             cursor: pointer;
-            &:hover, &:focus {
+            -webkit-transition-duration: $transitionTime;
+            transition-duration: $transitionTime;
+            -webkit-transition-property: color, background-color;
+            transition-property: color, background-color;
+
+            &:hover,
+            &:focus {
                 outline: none;
-                &:before {
-                    //opacity: $slick-opacity-on-hover;
-                }
+                background-color: darken($tragicLight, 15%);
             }
         }
         &.slick-active button {
             background-color: $tragicDark;
-            //opacity: $slick-opacity-default;
         }
     }
 }

@@ -203,6 +203,24 @@
         "id": "social_facebook_link",
         "label": "Facebook URL",
         "info": "https://www.facebook.com/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram URL",
+        "info": "https://instagram.com/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": "Tumblr URL",
+        "info": "https://shopify.tumblr.com"
+      },
+      {
+        "type": "text",
+        "id": "social_flickr_link",
+        "label": "Flickr URL",
+        "info": "https://flickr.com/shopify"
       }
     ]
   }

@@ -13,8 +13,8 @@
         width: 100%;
         display: block;
         opacity: 1;
-        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-        transition: opacity 0.35s, transform 0.35s;
+        -webkit-transition: opacity $transitionTime, -webkit-transform $transitionTime;
+        transition: opacity $transitionTime, transform $transitionTime;
         -webkit-transform: scale(1);
         transform: scale(1);
     }
@@ -66,17 +66,17 @@
     width: 100%;
     text-align: center;
     opacity: 0;
-    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transition: opacity $transitionTime, -webkit-transform $transitionTime;
+    transition: opacity $transitionTime, transform $transitionTime;
     -webkit-transform: scale(1.5);
     transform: scale(1.5);
 
     h2 {
-        font-size: 18px; //need a variable!
+        font-size: em(18px); //need a variable!
     }
 
     h3 {
         color: $yellowSunshine;
-        font-size: 15px; //need a variable!
+        font-size: em(15px); //need a variable!
     }
 }
