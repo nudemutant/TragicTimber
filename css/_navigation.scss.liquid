@@ -1,16 +1,47 @@
 /*============================================================================
   #Site Nav and Dropdowns
 ==============================================================================*/
+
+// We are styling all nav the same,
+// so here are some placeholders to do just that
+
+%site-nav {
+  font-size: em(12px);
+  font-family: $headerFontStack;
+  font-weight: $bold;
+  letter-spacing: $siteKerning;
+  text-transform: uppercase;
+
+  @include at-query ($min, $xxlarge) {
+    font-size: em(14px);
+  }
+}
+
+%site-nav__link {
+  display: block;
+  text-decoration: none;
+  padding: $gutter / 5;
+  white-space: nowrap;
+  color: $colorNavText;
+  border: 2px solid transparent;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: darken($colorNavText, 15%);
+  }
+
+  @include at-query ($min, $xxlarge) {
+    padding: ($gutter / 5) ($gutter / 3);
+  }
+}
+
 .nav-bar {
   background-color: $colorNav;
 }
 
 .site-nav {
-  font-size: em(14px);
-  font-family: $headerFontStack;
-  font-weight: $bold;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  @extend %site-nav;
   cursor: default;
   margin: 0 0 0 (-$gutter / 2);
 
@@ -22,6 +53,23 @@
   > li {
     position: relative;
     display: inline-block;
+
+    &.site-nav--active {
+      & > .site-nav__link {
+        color: $tragicDark;
+        border: 2px solid $tragicDark;
+      }
+    }
+  }
+}
+
+.customer-nav {
+  margin: 0 (-$gutter / 2) 0 0;
+
+  li {
+    a {
+      @extend %site-nav__link;
+    }
   }
 }
 
@@ -35,27 +83,13 @@
 }
 
 .site-nav__link {
-  display: block;
-  text-decoration: none;
-  padding: $gutter / 2;
-  white-space: nowrap;
-  color: $colorNavText;
-
-  &:hover,
-  &:active,
-  &:focus {
-    color: darken($colorNavText, 15%);
-  }
+  @extend %site-nav__link;
 
   .icon-arrow-down {
     position: relative;
     top: -2px;
     font-size: 10px;
     padding-left: $gutter / 4;
-  }
-
-  .site-nav--active > & {
-    font-weight: bold;
   }
 
   .site-nav--mobile & {
@@ -78,12 +112,14 @@
   }
 
   a {
-    background-color: $colorNav;
+    color: $yellowSunshine;
+    background-color: $tragicDark;
 
     &:hover,
     &:active,
     &:focus {
-      background-color: darken($colorNav, 10%);
+      color: darken($yellowSunshine, 15%);
+      background-color: darken($tragicDark, 10%);
     }
   }
 }
@@ -105,6 +141,7 @@
   - List of items inside the mobile drawer
 ==============================================================================*/
 .mobile-nav {
+  @extend %site-nav;
   // Negative of .drawer left/right padding for full-width link tap area
   margin: (-$gutter / 2) (-$gutter / 2) 0 (-$gutter / 2);
 

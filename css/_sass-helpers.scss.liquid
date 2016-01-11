@@ -6,6 +6,8 @@ $viewportIncrement: 1px;
 $small: 480px;
 $medium: 768px;
 $large: 769px;
+$xlarge: 1170px;
+$xxlarge: 1540px;
 
 $postSmall: $small + $viewportIncrement;
 $preMedium: $medium - $viewportIncrement;
@@ -26,13 +28,15 @@ $breakpoint-has-pull:  ('medium', 'medium-down', 'large');
   #General Variables
 ==============================================================================*/
 // Tragic Sunshine colors
-$orangeSunshine: #f05722;
-$yellowSunshine: #fffbd5;
+$orangeSunshine: {{ settings.color_primary }};
+//$orangeSunshine: #f05722;
+$yellowSunshine: {{ settings.color_body_bg }};
+//$yellowSunshine: #fffbd5;
 $tragicLight: #b4b08b;
 $tragicDark: #4c4b40;
 
 // Timber Colors
-$colorPrimary: {{ settings.color_primary }};
+$colorPrimary: $orangeSunshine;
 $colorSecondary: {{ settings.color_secondary }};
 
 // Button colors
@@ -54,7 +58,7 @@ $colorLinkHover: lighten($colorPrimary, 15%);
 $colorTextBody: {{ settings.color_body_text }};
 
 // Backgrounds
-$colorBody: {{ settings.color_body_bg }};
+$colorBody: $yellowSunshine;
 
 // Border colors
 $colorBorder: {{ settings.color_borders }};
@@ -69,7 +73,7 @@ $colorFooterBg: $colorBody;
 $colorFooterText: {{ settings.color_footer_text }};
 
 // Logo max width
-$logoMaxWidth: 100%;
+$logoMaxWidth: 1222px; //this needs to be wired up to the console
 //$logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
 
 // Helper colors
@@ -83,9 +87,9 @@ $successGreenBg: #ecfef0;
 // Drawers
 $drawerNavWidth: 300px;
 $drawerCartWidth: 300px;
-$colorDrawers: #f6f6f6;
+$colorDrawers: $tragicDark;
 $colorDrawerBorder: darken($colorDrawers, 5%);
-$colorDrawerText: #333;
+$colorDrawerText: $yellowSunshine;
 $drawerTransition: all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1);
 
 // Sizing variables
@@ -103,7 +107,7 @@ $zindexDrawer: 10;
 $headerFontStack: 'Poppins', sans-serif;
 $headerFontWeight: 600;
 
-$bodyFontStack: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$bodyFontStack: 'Merriweather', sans-serif;
 $baseFontSize: 14px; // Henseforth known as 1em
 
 @font-face {
@@ -120,6 +124,8 @@ $socialIconFontStack: 'icons';
 
 $normal: 400;
 $bold: 600;
+
+$siteKerning: 2px;
 
 
 /*============================================================================

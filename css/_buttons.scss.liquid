@@ -16,6 +16,9 @@ html input[disabled] {
   padding: 8px 10px;
   width: auto;
   margin: 0;
+  font-family: $headerFontStack;
+  text-transform: uppercase;
+  letter-spacing: $siteKerning;
   line-height: 1.42;
   font-weight: bold;
   text-decoration: none;
@@ -27,7 +30,6 @@ html input[disabled] {
   @include user-select(none);
   -webkit-appearance: none;
   -moz-appearance: none;
-  border-radius: $radius;
 
   /*================ Set primary button colors - can override later ================*/
   background-color: $colorBtnPrimary;
@@ -49,6 +51,10 @@ html input[disabled] {
     cursor: default;
     color: $disabledBorder;
     background-color: $disabledGrey;
+  }
+
+  &.add-to-cart {
+    padding: ($gutter / 2);
   }
 }
 

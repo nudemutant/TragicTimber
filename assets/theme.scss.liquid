@@ -8,6 +8,8 @@ $viewportIncrement: 1px;
 $small: 480px;
 $medium: 768px;
 $large: 769px;
+$xlarge: 1170px;
+$xxlarge: 1540px;
 
 $postSmall: $small + $viewportIncrement;
 $preMedium: $medium - $viewportIncrement;
@@ -28,13 +30,15 @@ $breakpoint-has-pull:  ('medium', 'medium-down', 'large');
   #General Variables
 ==============================================================================*/
 // Tragic Sunshine colors
-$orangeSunshine: #f05722;
-$yellowSunshine: #fffbd5;
+$orangeSunshine: {{ settings.color_primary }};
+//$orangeSunshine: #f05722;
+$yellowSunshine: {{ settings.color_body_bg }};
+//$yellowSunshine: #fffbd5;
 $tragicLight: #b4b08b;
 $tragicDark: #4c4b40;
 
 // Timber Colors
-$colorPrimary: {{ settings.color_primary }};
+$colorPrimary: $orangeSunshine;
 $colorSecondary: {{ settings.color_secondary }};
 
 // Button colors
@@ -56,7 +60,7 @@ $colorLinkHover: lighten($colorPrimary, 15%);
 $colorTextBody: {{ settings.color_body_text }};
 
 // Backgrounds
-$colorBody: {{ settings.color_body_bg }};
+$colorBody: $yellowSunshine;
 
 // Border colors
 $colorBorder: {{ settings.color_borders }};
@@ -71,7 +75,7 @@ $colorFooterBg: $colorBody;
 $colorFooterText: {{ settings.color_footer_text }};
 
 // Logo max width
-$logoMaxWidth: 100%;
+$logoMaxWidth: 1222px; //this needs to be wired up to the console
 //$logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
 
 // Helper colors
@@ -85,9 +89,9 @@ $successGreenBg: #ecfef0;
 // Drawers
 $drawerNavWidth: 300px;
 $drawerCartWidth: 300px;
-$colorDrawers: #f6f6f6;
+$colorDrawers: $tragicDark;
 $colorDrawerBorder: darken($colorDrawers, 5%);
-$colorDrawerText: #333;
+$colorDrawerText: $yellowSunshine;
 $drawerTransition: all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1);
 
 // Sizing variables
@@ -105,7 +109,7 @@ $zindexDrawer: 10;
 $headerFontStack: 'Poppins', sans-serif;
 $headerFontWeight: 600;
 
-$bodyFontStack: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$bodyFontStack: 'Merriweather', sans-serif;
 $baseFontSize: 14px; // Henseforth known as 1em
 
 @font-face {
@@ -122,6 +126,8 @@ $socialIconFontStack: 'icons';
 
 $normal: 400;
 $bold: 600;
+
+$siteKerning: 2px;
 
 
 /*============================================================================
@@ -660,7 +666,283 @@ $class-type: unquote(".");
     }
   }
 }
+/*============================================================================
+  #Typography
+==============================================================================*/
+body,
+input,
+textarea,
+button,
+select {
+  font-size: $baseFontSize;
+  line-height: 1.6;
+  font-family: $bodyFontStack;
+  color: $colorTextBody;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
 
+h1, h2, h3, h4, h5, h6 {
+  display: block;
+  font-family: $headerFontStack;
+  margin: 0 0 0.5em;
+  line-height: 1.4;
+
+  a {
+    text-decoration: none;
+    font-weight: inherit;
+  }
+}
+
+/*================ Use em() Sass function to declare font-size ================*/
+h1 {
+  font-size: em(36px);
+  font-weight: $headerFontWeight;
+}
+
+h2 {
+  font-size: em(28px);
+  font-weight: $headerFontWeight;
+}
+
+h3 {
+  font-size: em(22px);
+  font-weight: $headerFontWeight;
+}
+
+h4 {
+  font-size: em(20px);
+  font-weight: $headerFontWeight;
+}
+
+h5 {
+  font-size: em(16px);
+  font-weight: $headerFontWeight;
+}
+
+h6 {
+  font-size: em(14px);
+  text-transform: uppercase;
+  font-weight: $normal;
+}
+
+
+.h1 { @extend h1; }
+.h2 { @extend h2; }
+.h3 { @extend h3; }
+.h4 { @extend h4; }
+.h5 { @extend h5; }
+.h6 { @extend h6; }
+
+p {
+  margin: 0 0 ($gutter / 2) 0;
+
+  img {
+    margin: 0;
+  }
+}
+
+em {
+  font-style: italic;
+}
+
+b, strong {
+  font-weight: bold;
+}
+
+small {
+  font-size: 0.9em;
+}
+
+sup, sub {
+  position: relative;
+  font-size: 60%;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.5em;
+}
+
+/*================ Blockquotes ================*/
+blockquote {
+  font-size: 1.125em;
+  line-height: 1.45;
+  font-style: italic;
+  margin: 0 0 $gutter;
+  padding: ($gutter / 2) $gutter;
+  border-left: 1px solid $colorBorder;
+
+  p {
+    margin-bottom: 0;
+
+    & + cite {
+      margin-top: $gutter / 2;
+    }
+  }
+
+  cite {
+    display: block;
+    font-size: 0.75em;
+
+    &:before {
+      content: '\2014 \0020';
+    }
+  }
+}
+
+/*================ Code ================*/
+code, pre {
+  background-color: #faf7f5;
+  font-family: Consolas,monospace;
+  font-size: 1em;
+  border: 0 none;
+  padding: 0 2px;
+  color: #51ab62;
+}
+
+pre {
+  overflow: auto;
+  padding: $gutter / 2;
+  margin: 0 0 $gutter;
+}
+
+/*================ Horizontal Rules ================*/
+hr {
+  clear: both;
+  border-top: solid $colorBorder;
+  border-width: 1px 0 0;
+  margin: $gutter 0;
+  height: 0;
+
+  &.hr--small {
+    margin: ($gutter / 2) 0;
+  }
+
+  &.hr--clear {
+    border-top-color: transparent;
+  }
+}
+
+/*================ Section Headers ================*/
+.section-header {
+  margin-bottom: $gutter / 1.5;
+}
+
+@include at-query ($min, $large) {
+  .section-header {
+    display: table;
+    width: 100%;
+  }
+
+  .section-header__title {
+    margin-bottom: $gutter / 2.5;
+  }
+
+  .section-header__left {
+    display: table-cell;
+    vertical-align: middle;
+    margin-bottom: 0;
+
+    h1, h2, h3, h4,
+    .h1, .h2, .h3, .h4 {
+      margin-bottom: 0;
+    }
+  }
+
+  .section-header__right {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    width: 335px;
+
+    @include at-query ($max, $medium) {
+      margin-bottom: $gutter;
+    }
+  }
+}
+
+.section-header__right {
+  .form-horizontal,
+  .collection-view {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  @include at-query ($min, $postSmall) {
+    label + select,
+    .collection-view {
+      margin-left: $gutter / 2;
+    }
+  }
+}
+
+.collection-view {
+  display: inline-block;
+  border: 1px solid $colorBorder;
+  border-radius: $radius;
+  padding: 0 5px;
+  height: 37px; // same as form elements
+  overflow: hidden;
+
+  /*================ Only show on larger screens ================*/
+  @include at-query ($min, $large) {
+    display: inline-block;
+  }
+}
+
+.change-view {
+  display: block;
+  background: none;
+  border: 0 none;
+  float: left;
+  padding: 10px 8px;
+  color: $colorBorder;
+  line-height: 1;
+
+  &:hover,
+  &:focus {
+    color: $colorPrimary;
+  }
+}
+
+.change-view--active {
+  cursor: default;
+  color: $colorPrimary;
+}
+
+
+
+/*============================================================================
+  #Breadcrumbs
+==============================================================================*/
+.breadcrumb {
+  margin: ($gutter / 2) 0;
+  text-align: center;
+  font-size: em(10px);
+  text-transform: uppercase;
+  font-family: $headerFontStack;
+  font-weight: $bold;
+  letter-spacing: $siteKerning;
+
+  a,
+  span {
+    display: inline-block;
+    padding: 0 0 0 ($gutter /4 );
+    color: $tragicLight;
+  }
+
+  span {
+    &:last-child {
+      color: $tragicDark;
+      padding-right: 0;
+    }
+  }
+}
 /*============================================================================
   #Buttons
 ==============================================================================*/
@@ -679,6 +961,9 @@ html input[disabled] {
   padding: 8px 10px;
   width: auto;
   margin: 0;
+  font-family: $headerFontStack;
+  text-transform: uppercase;
+  letter-spacing: $siteKerning;
   line-height: 1.42;
   font-weight: bold;
   text-decoration: none;
@@ -690,7 +975,6 @@ html input[disabled] {
   @include user-select(none);
   -webkit-appearance: none;
   -moz-appearance: none;
-  border-radius: $radius;
 
   /*================ Set primary button colors - can override later ================*/
   background-color: $colorBtnPrimary;
@@ -712,6 +996,10 @@ html input[disabled] {
     cursor: default;
     color: $disabledBorder;
     background-color: $disabledGrey;
+  }
+
+  &.add-to-cart {
+    padding: ($gutter / 2);
   }
 }
 
@@ -899,7 +1187,6 @@ html input[disabled] {
 
   input {
     display: block;
-    background: none;
     text-align: center;
     width: 100%;
     padding: 5px 25px;
@@ -970,6 +1257,128 @@ html input[disabled] {
 {% endif %} // settings.ajax_cart_method
 
 /*============================================================================
+  #Drawers
+==============================================================================*/
+.js-drawer-open {
+  overflow: hidden;
+  height: 100%;
+}
+
+.drawer {
+  @include promote-layer();
+  display: none;
+  position: fixed;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  top: 0;
+  bottom: 0;
+  padding: 0 ($gutter / 2) ($gutter / 2);
+  max-width: 95%;
+  z-index: $zindexDrawer;
+  color: $colorDrawerText;
+  background-color: $colorDrawers;
+  transition: $drawerTransition;
+
+  a {
+    color: $colorDrawerText;
+
+    &:hover,
+    &:focus {
+      opacity: 0.7;
+    }
+  }
+
+  input,
+  textarea {
+    border-color: $colorDrawerBorder;
+  }
+}
+
+.drawer--left {
+  width: $drawerNavWidth;
+  left: -$drawerNavWidth;
+  border-right: 1px solid $colorDrawerBorder;
+
+  .js-drawer-open-left & {
+    display: block;
+    @include transform(translateX($drawerNavWidth));
+
+    .lt-ie9 & {
+      left: 0;
+    }
+  }
+}
+
+.drawer--right {
+  width: $drawerCartWidth;
+  right: -$drawerCartWidth;
+  border-left: 1px solid $colorDrawerBorder;
+
+  .js-drawer-open-right & {
+    display: block;
+    @include transform(translateX(-$drawerCartWidth));
+
+    .lt-ie9 & {
+      right: 0;
+    }
+  }
+}
+
+#PageContainer {
+  overflow: hidden;
+}
+
+.is-moved-by-drawer {
+  @include promote-layer();
+  transition: $drawerTransition;
+
+  .js-drawer-open-left & {
+    @include transform(translateX($drawerNavWidth));
+  }
+
+  .js-drawer-open-right & {
+    @include transform(translateX(-$drawerCartWidth));
+  }
+}
+
+.drawer__header {
+  display: table;
+  height: 70px;
+  width: 100%;
+  margin-bottom: $gutter / 2;
+  border-bottom: 1px solid $colorDrawerBorder;
+}
+
+.drawer__title,
+.drawer__close {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.drawer__title {
+  width: 100%;
+}
+
+.drawer__close {
+  width: 1%;
+  text-align: center;
+  font-size: em(18px);
+}
+
+.drawer__close button {
+  position: relative;
+  right: -20px;
+  height: 100%;
+  padding: 0 20px;
+  color: inherit;
+
+  &:active,
+  &:focus {
+    background-color: darken($colorDrawers, 5%);
+  }
+}
+/*============================================================================
   #Site Footer
 ==============================================================================*/
 .site-footer {
@@ -986,7 +1395,7 @@ html input[disabled] {
   #Site Header
 ==============================================================================*/
 .site-header {
-  padding: 0;
+  padding: 0 $gutter;
 
   .grid--table {
     display: table;
@@ -999,12 +1408,16 @@ html input[disabled] {
       vertical-align: middle;
     }
   }
+
+  @include at-query ($min, $xxlarge) {
+    padding: 0 ($gutter * 1.5);
+  }
 }
 
 .site-header__logo {
   text-align: center;
   margin: 0 auto;
-  max-width: 100%;
+  max-width: $logoMaxWidth;
 
   @include at-query ($min, $large) {
     text-align: left;
@@ -1026,8 +1439,16 @@ html input[disabled] {
 }
 
 .site-header__logo-link {
-  max-width: $logoMaxWidth;
-  margin: 0 auto;
+  padding-top: 33.98%;  /* 175px/515px = 0.3398 */
+  background-image: url({{ 'tragicsunshine-banner-small.png' | asset_url }});;
+  background-size: cover;
+  -moz-background-size: cover;  /* Firefox 3.6 */
+  background-position: center;  /* Internet Explorer 7/8 */
+
+  @include at-query ($min, $postSmall) {
+    padding-top: 14.4%;  /* 176px/1222px = 0.1440 */
+    background-image: url({{ 'tragicsunshine-banner.png' | asset_url }});;
+  }
 }
 
 .site-header__cart-toggle {
@@ -1066,7 +1487,7 @@ $gridBorder: 4px;
     width: 100%;
     opacity: 0;
 
-    @include at-query ($min, 500px) {
+    @include at-query ($min, 450px) {
         width: 50%;
     }
 
@@ -1125,6 +1546,23 @@ $gridBorder: 4px;
 /*============================================================================
   #Product Page
 ==============================================================================*/
+.product-type {
+  font-size: em(14px);
+  text-transform: uppercase;
+  font-weight: $bold;
+  margin: $gutter 0 ($gutter / 2);
+}
+
+.product-title {
+  color: $orangeSunshine;
+  margin-bottom: $gutter;
+  border-bottom: 2px solid $orangeSunshine;
+}
+
+.product-description {
+  padding-bottom: $gutter / 2;
+}
+
 .product-single__variants {
   display: none;
 
@@ -1151,16 +1589,47 @@ $gridBorder: 4px;
 /*============================================================================
   #Site Nav and Dropdowns
 ==============================================================================*/
+
+// We are styling all nav the same,
+// so here are some placeholders to do just that
+
+%site-nav {
+  font-size: em(12px);
+  font-family: $headerFontStack;
+  font-weight: $bold;
+  letter-spacing: $siteKerning;
+  text-transform: uppercase;
+
+  @include at-query ($min, $xxlarge) {
+    font-size: em(14px);
+  }
+}
+
+%site-nav__link {
+  display: block;
+  text-decoration: none;
+  padding: $gutter / 5;
+  white-space: nowrap;
+  color: $colorNavText;
+  border: 2px solid transparent;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: darken($colorNavText, 15%);
+  }
+
+  @include at-query ($min, $xxlarge) {
+    padding: ($gutter / 5) ($gutter / 3);
+  }
+}
+
 .nav-bar {
   background-color: $colorNav;
 }
 
 .site-nav {
-  font-size: em(14px);
-  font-family: $headerFontStack;
-  font-weight: $bold;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  @extend %site-nav;
   cursor: default;
   margin: 0 0 0 (-$gutter / 2);
 
@@ -1172,6 +1641,23 @@ $gridBorder: 4px;
   > li {
     position: relative;
     display: inline-block;
+
+    &.site-nav--active {
+      & > .site-nav__link {
+        color: $tragicDark;
+        border: 2px solid $tragicDark;
+      }
+    }
+  }
+}
+
+.customer-nav {
+  margin: 0 (-$gutter / 2) 0 0;
+
+  li {
+    a {
+      @extend %site-nav__link;
+    }
   }
 }
 
@@ -1185,27 +1671,13 @@ $gridBorder: 4px;
 }
 
 .site-nav__link {
-  display: block;
-  text-decoration: none;
-  padding: $gutter / 2;
-  white-space: nowrap;
-  color: $colorNavText;
-
-  &:hover,
-  &:active,
-  &:focus {
-    color: darken($colorNavText, 15%);
-  }
+  @extend %site-nav__link;
 
   .icon-arrow-down {
     position: relative;
     top: -2px;
     font-size: 10px;
     padding-left: $gutter / 4;
-  }
-
-  .site-nav--active > & {
-    font-weight: bold;
   }
 
   .site-nav--mobile & {
@@ -1228,12 +1700,14 @@ $gridBorder: 4px;
   }
 
   a {
-    background-color: $colorNav;
+    color: $yellowSunshine;
+    background-color: $tragicDark;
 
     &:hover,
     &:active,
     &:focus {
-      background-color: darken($colorNav, 10%);
+      color: darken($yellowSunshine, 15%);
+      background-color: darken($tragicDark, 10%);
     }
   }
 }
@@ -1255,6 +1729,7 @@ $gridBorder: 4px;
   - List of items inside the mobile drawer
 ==============================================================================*/
 .mobile-nav {
+  @extend %site-nav;
   // Negative of .drawer left/right padding for full-width link tap area
   margin: (-$gutter / 2) (-$gutter / 2) 0 (-$gutter / 2);
 
@@ -1404,7 +1879,7 @@ $gridBorder: 4px;
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: 1000;
+        z-index: 4;
         text-indent: 200%;
         white-space: nowrap;
         font-size: 0;
@@ -1485,6 +1960,23 @@ body {
   }
 }
 
+.half-wrapper {
+  max-width: $siteWidth / 2;
+}
+
+.third-wrapper {
+  max-width: $siteWidth / 3;
+
+  @include at-query ($max, $medium) {
+    max-width: 100%;
+    padding: 0 $gutter 0 ($gutter * 2);
+  }
+}
+
+.quarter-wrapper {
+  max-width: $siteWidth / 4;
+}
+
 .main-content {
   display: block;
   margin-top: 0;
@@ -1544,7 +2036,7 @@ body {
   }
 
   // Add some top margin to headers from the rich text editor
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3, h4, h5 {
     margin-top: 2em;
 
     &:first-child {
@@ -1554,6 +2046,10 @@ body {
     a {
       text-decoration: none;
     }
+  }
+
+  h6 {
+    margin-bottom: $gutter / 2;
   }
 
   > div {
@@ -1852,7 +2348,6 @@ select {
   border: 1px solid $colorBorder;
   max-width: 100%;
   padding: 8px 10px;
-  border-radius: $radius;
 
   &:focus {
     border: 1px solid darken($colorBorder, 10%);
@@ -1907,7 +2402,7 @@ select {
     image: url('{{ "ico-select.svg" | asset_url }}');
     repeat: no-repeat;
     position: right 10px center;
-    color: transparent;
+    color: #fff;
   }
   padding-right: 28px;
   text-indent: 0.01px;
@@ -1958,6 +2453,8 @@ select::-ms-expand {
 }
 
 label[for] {
+  font-family: $headerFontStack;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
@@ -2183,151 +2680,10 @@ label.error {
 }
 
 /*============================================================================
-  #Drawers
-==============================================================================*/
-.js-drawer-open {
-  overflow: hidden;
-  height: 100%;
-}
-
-.drawer {
-  @include promote-layer();
-  display: none;
-  position: fixed;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  top: 0;
-  bottom: 0;
-  padding: 0 ($gutter / 2) ($gutter / 2);
-  max-width: 95%;
-  z-index: $zindexDrawer;
-  color: $colorDrawerText;
-  background-color: $colorDrawers;
-  transition: $drawerTransition;
-
-  a {
-    color: $colorDrawerText;
-
-    &:hover,
-    &:focus {
-      opacity: 0.7;
-    }
-  }
-
-  input,
-  textarea {
-    border-color: $colorDrawerBorder;
-  }
-}
-
-.drawer--left {
-  width: $drawerNavWidth;
-  left: -$drawerNavWidth;
-  border-right: 1px solid $colorDrawerBorder;
-
-  .js-drawer-open-left & {
-    display: block;
-    @include transform(translateX($drawerNavWidth));
-
-    .lt-ie9 & {
-      left: 0;
-    }
-  }
-}
-
-.drawer--right {
-  width: $drawerCartWidth;
-  right: -$drawerCartWidth;
-  border-left: 1px solid $colorDrawerBorder;
-
-  .js-drawer-open-right & {
-    display: block;
-    @include transform(translateX(-$drawerCartWidth));
-
-    .lt-ie9 & {
-      right: 0;
-    }
-  }
-}
-
-#PageContainer {
-  overflow: hidden;
-}
-
-.is-moved-by-drawer {
-  @include promote-layer();
-  transition: $drawerTransition;
-
-  .js-drawer-open-left & {
-    @include transform(translateX($drawerNavWidth));
-  }
-
-  .js-drawer-open-right & {
-    @include transform(translateX(-$drawerCartWidth));
-  }
-}
-
-.drawer__header {
-  display: table;
-  height: 70px;
-  width: 100%;
-  margin-bottom: $gutter / 2;
-  border-bottom: 1px solid $colorDrawerBorder;
-}
-
-.drawer__title,
-.drawer__close {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.drawer__title {
-  width: 100%;
-}
-
-.drawer__close {
-  width: 1%;
-  text-align: center;
-  font-size: em(18px);
-}
-
-.drawer__close button {
-  position: relative;
-  right: -20px;
-  height: 100%;
-  padding: 0 20px;
-  color: inherit;
-
-  &:active,
-  &:focus {
-    background-color: darken($colorDrawers, 5%);
-  }
-}
-
-/*============================================================================
   #Collection Filters
 ==============================================================================*/
 .filter--active {
   font-weight: bold;
-}
-
-/*============================================================================
-  #Breadcrumbs
-==============================================================================*/
-.breadcrumb {
-  margin-bottom: $gutter;
-
-  a,
-  span {
-    display: inline-block;
-    padding: 0 7px 0 0;
-    margin-right: 7px;
-
-    &:first-child {
-      padding-left: 0;
-    }
-  }
 }
 
 /*============================================================================
@@ -2398,246 +2754,225 @@ label.error {
     }
   }
 }
-/*============================================================================
-  #Typography
-==============================================================================*/
-body,
-input,
-textarea,
-button,
-select {
-  font-size: $baseFontSize;
-  line-height: 1.6;
-  font-family: $bodyFontStack;
-  color: $colorTextBody;
-  font-weight: 300;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
-}
+/* Slider */
 
-h1, h2, h3, h4, h5, h6 {
-  display: block;
-  font-family: $headerFontStack;
-  font-weight: $headerFontWeight;
-  margin: 0 0 0.5em;
-  line-height: 1.4;
-
-  a {
-    text-decoration: none;
-    font-weight: inherit;
-  }
-}
-
-/*================ Use em() Sass function to declare font-size ================*/
-h1 {
-  font-size: em(36px);
-}
-
-h2 {
-  font-size: em(28px);
-}
-
-h3 {
-  font-size: em(22px);
-}
-
-h4 {
-  font-size: em(20px);
-}
-
-h5 {
-  font-size: em(16px);
-}
-
-h6 {
-  font-size: em(14px);
-}
-
-
-.h1 { @extend h1; }
-.h2 { @extend h2; }
-.h3 { @extend h3; }
-.h4 { @extend h4; }
-.h5 { @extend h5; }
-.h6 { @extend h6; }
-
-p {
-  margin: 0 0 ($gutter / 2) 0;
-
-  img {
-    margin: 0;
-  }
-}
-
-em {
-  font-style: italic;
-}
-
-b, strong {
-  font-weight: bold;
-}
-
-small {
-  font-size: 0.9em;
-}
-
-sup, sub {
-  position: relative;
-  font-size: 60%;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-
-sub {
-  bottom: -0.5em;
-}
-
-/*================ Blockquotes ================*/
-blockquote {
-  font-size: 1.125em;
-  line-height: 1.45;
-  font-style: italic;
-  margin: 0 0 $gutter;
-  padding: ($gutter / 2) $gutter;
-  border-left: 1px solid $colorBorder;
-
-  p {
-    margin-bottom: 0;
-
-    & + cite {
-      margin-top: $gutter / 2;
-    }
-  }
-
-  cite {
+.slick-slider {
+    position: relative;
     display: block;
-    font-size: 0.75em;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+.slick-list {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    margin: 0;
+    padding: 0;
 
+    &:focus {
+        outline: none;
+    }
+
+    &.dragging {
+        cursor: pointer;
+        cursor: hand;
+    }
+}
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.slick-track {
+    position: relative;
+    left: 0;
+    top: 0;
+    display: block;
+
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    .slick-loading & {
+        visibility: hidden;
+    }
+}
+.slick-slide {
+    float: left;
+    height: 100%;
+    min-height: 1px;
+    [dir="rtl"] & {
+        float: right;
+    }
+    img {
+        display: block;
+        margin: 0 auto;
+    }
+    &.slick-loading img {
+        display: none;
+    }
+
+    display: none;
+
+    &.dragging img {
+        pointer-events: none;
+    }
+
+    .slick-initialized & {
+        display: block;
+    }
+
+    .slick-loading & {
+        visibility: hidden;
+    }
+
+    .slick-vertical & {
+        display: block;
+        height: auto;
+        border: 1px solid transparent;
+    }
+}
+.slick-arrow.slick-hidden {
+    display: none;
+}
+
+/* Arrows */
+
+.slick-prev,
+.slick-next {
+    position: absolute;
+    display: block;
+    height: 20px;
+    width: 20px;
+    line-height: 0px;
+    font-size: 0px;
+    cursor: pointer;
+    background: transparent;
+    color: transparent;
+    top: 50%;
+    margin-top: -10px\9; /*lte IE 8*/
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    border: none;
+    outline: none;
+    &:hover, &:focus {
+        outline: none;
+        background: transparent;
+        color: transparent;
+        &:before {
+            //opacity: $slick-opacity-on-hover;
+        }
+    }
+    &.slick-disabled:before {
+        //opacity: $slick-opacity-not-active;
+    }
+}
+
+.slick-prev:before, .slick-next:before {
+    //font-family: $slick-font-family;
+    font-size: 20px;
+    line-height: 1;
+    color: red;
+    //opacity: $slick-opacity-default;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.slick-prev {
+    left: -25px;
+    [dir="rtl"] & {
+        left: auto;
+        right: -25px;
+    }
     &:before {
-      content: '\2014 \0020';
+        content: "prev";
+        [dir="rtl"] & {
+            content: "next";
+        }
     }
-  }
 }
 
-/*================ Code ================*/
-code, pre {
-  background-color: #faf7f5;
-  font-family: Consolas,monospace;
-  font-size: 1em;
-  border: 0 none;
-  padding: 0 2px;
-  color: #51ab62;
+.slick-next {
+    right: -25px;
+    [dir="rtl"] & {
+        left: -25px;
+        right: auto;
+    }
+    &:before {
+        content: "next";
+        [dir="rtl"] & {
+            content: "prev";
+        }
+    }
 }
 
-pre {
-  overflow: auto;
-  padding: $gutter / 2;
-  margin: 0 0 $gutter;
+/* Dots */
+
+.slick-slider {
+    margin-bottom: $gutter;
 }
 
-/*================ Horizontal Rules ================*/
-hr {
-  clear: both;
-  border-top: solid $colorBorder;
-  border-width: 1px 0 0;
-  margin: $gutter 0;
-  height: 0;
-
-  &.hr--small {
-    margin: ($gutter / 2) 0;
-  }
-
-  &.hr--clear {
-    border-top-color: transparent;
-  }
-}
-
-/*================ Section Headers ================*/
-.section-header {
-  margin-bottom: $gutter / 1.5;
-}
-
-@include at-query ($min, $large) {
-  .section-header {
-    display: table;
+.slick-dots {
+    position: absolute;
+    bottom: -($gutter * 1.5);
+    list-style: none;
+    display: block;
+    text-align: center;
+    padding: 0;
+    margin: 0;
     width: 100%;
-  }
-
-  .section-header__title {
-    margin-bottom: $gutter / 2.5;
-  }
-
-  .section-header__left {
-    display: table-cell;
-    vertical-align: middle;
-    margin-bottom: 0;
-
-    h1, h2, h3, h4,
-    .h1, .h2, .h3, .h4 {
-      margin-bottom: 0;
+    li {
+        position: relative;
+        display: inline-block;
+        height: $gutter / 2;
+        width: $gutter / 2;
+        margin: 0 5px;
+        padding: 0;
+        cursor: pointer;
+        button {
+            border: 0;
+            background-color: $tragicLight;
+            border-radius: $gutter;
+            display: block;
+            height: $gutter / 2;
+            width: $gutter / 2;
+            outline: none;
+            line-height: 0px;
+            font-size: 0px;
+            color: transparent;
+            padding: 5px;
+            cursor: pointer;
+            &:hover, &:focus {
+                outline: none;
+                &:before {
+                    //opacity: $slick-opacity-on-hover;
+                }
+            }
+        }
+        &.slick-active button {
+            background-color: $tragicDark;
+            //opacity: $slick-opacity-default;
+        }
     }
-  }
-
-  .section-header__right {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: right;
-    width: 335px;
-
-    @include at-query ($max, $medium) {
-      margin-bottom: $gutter;
-    }
-  }
 }
-
-.section-header__right {
-  .form-horizontal,
-  .collection-view {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  @include at-query ($min, $postSmall) {
-    label + select,
-    .collection-view {
-      margin-left: $gutter / 2;
-    }
-  }
-}
-
-.collection-view {
-  display: inline-block;
-  border: 1px solid $colorBorder;
-  border-radius: $radius;
-  padding: 0 5px;
-  height: 37px; // same as form elements
-  overflow: hidden;
-
-  /*================ Only show on larger screens ================*/
-  @include at-query ($min, $large) {
-    display: inline-block;
-  }
-}
-
-.change-view {
-  display: block;
-  background: none;
-  border: 0 none;
-  float: left;
-  padding: 10px 8px;
-  color: $colorBorder;
-  line-height: 1;
-
-  &:hover,
-  &:focus {
-    color: $colorPrimary;
-  }
-}
-
-.change-view--active {
-  cursor: default;
-  color: $colorPrimary;
-}
-

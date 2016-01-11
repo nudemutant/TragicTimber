@@ -2,7 +2,7 @@
   #Site Header
 ==============================================================================*/
 .site-header {
-  padding: 0;
+  padding: 0 $gutter;
 
   .grid--table {
     display: table;
@@ -15,12 +15,16 @@
       vertical-align: middle;
     }
   }
+
+  @include at-query ($min, $xxlarge) {
+    padding: 0 ($gutter * 1.5);
+  }
 }
 
 .site-header__logo {
   text-align: center;
   margin: 0 auto;
-  max-width: 100%;
+  max-width: $logoMaxWidth;
 
   @include at-query ($min, $large) {
     text-align: left;
@@ -42,8 +46,16 @@
 }
 
 .site-header__logo-link {
-  max-width: $logoMaxWidth;
-  margin: 0 auto;
+  padding-top: 33.98%;  /* 175px/515px = 0.3398 */
+  background-image: url({{ 'tragicsunshine-banner-small.png' | asset_url }});;
+  background-size: cover;
+  -moz-background-size: cover;  /* Firefox 3.6 */
+  background-position: center;  /* Internet Explorer 7/8 */
+
+  @include at-query ($min, $postSmall) {
+    padding-top: 14.4%;  /* 176px/1222px = 0.1440 */
+    background-image: url({{ 'tragicsunshine-banner.png' | asset_url }});;
+  }
 }
 
 .site-header__cart-toggle {

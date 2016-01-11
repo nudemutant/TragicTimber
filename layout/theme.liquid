@@ -29,7 +29,7 @@
 
   <!-- CSS ================================================== -->
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
-  {{ '//fonts.googleapis.com/css?family=Poppins:400,600' | stylesheet_tag }}
+  {{ '//fonts.googleapis.com/css?family=Merriweather|Poppins:400,600' | stylesheet_tag }}
 
   <!-- Header hook for plugins ================================================== -->
   {{ content_for_header }}
@@ -53,6 +53,13 @@
   Add the page template as a class for easy page or template specific styling.
 {% endcomment %}
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+
+            {% comment %}
+            Need to find somewhere for the search function to go!
+            <div class="site-header__search">
+              {% include 'search-bar' %}
+            </div>
+            {% endcomment %}
 
   <div id="NavDrawer" class="drawer drawer--left">
     <div class="drawer__header">
@@ -151,87 +158,85 @@
   </div>
   <div id="PageContainer" class="is-moved-by-drawer">
     <header class="site-header" role="banner">
-      <div class="">
+      <div class="grid--full grid--table">
+        <div class="grid__item one-quarter medium--one-eighth">
+          <nav class="nav-bar nav-left" role="navigation">
+            <div class="medium-down--hide">
+              {% comment %}
+                List out your main-menu linklist (default)
 
-        <div class="grid--full grid--table">
-          <div class="grid__item one-eighth large--one-quarter">
-            <nav class="nav-bar" role="navigation">
-              <div class="medium-down--hide">
-                {% comment %}
-                  List out your main-menu linklist (default)
+                More info on linklists:
+                  - http://docs.shopify.com/themes/liquid-variables/linklists
+              {% endcomment %}
+              <!-- begin site-nav -->
+              <ul class="site-nav" id="AccessibleNav">
+                {% for link in linklists.main-menu.links %}
+                  {% comment %}
+                    Create a dropdown menu by naming a linklist the same as a link in the parent nav
 
-                  More info on linklists:
-                    - http://docs.shopify.com/themes/liquid-variables/linklists
-                {% endcomment %}
-                <!-- begin site-nav -->
-                <ul class="site-nav" id="AccessibleNav">
-                  {% for link in linklists.main-menu.links %}
-                    {% comment %}
-                      Create a dropdown menu by naming a linklist the same as a link in the parent nav
-
-                      More info on dropdowns:
-                        - http://docs.shopify.com/manual/your-website/navigation/create-drop-down-menu
-                    {% endcomment %}
-                    {% assign child_list_handle = link.title | handleize %}
-                    {% if linklists[child_list_handle].links != blank %}
-                      <li class="site-nav--has-dropdown{% if link.active %} site-nav--active{% endif %}" aria-haspopup="true">
-                        <a href="{{ link.url }}" class="site-nav__link">
-                          {{ link.title }}
-                          <span class="icon icon-arrow-down" aria-hidden="true"></span>
-                        </a>
-                        <ul class="site-nav__dropdown">
-                          {% for childlink in linklists[child_list_handle].links %}
-                            <li{% if childlink.active %} class="site-nav--active"{% endif %}>
-                              <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
-                            </li>
-                          {% endfor %}
-                        </ul>
-                      </li>
-                    {% else %}
-                      <li {% if link.active %}class="site-nav--active"{% endif %}>
-                        <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
-                      </li>
-                    {% endif %}
-                  {% endfor %}
-                </ul>
-                <!-- //site-nav -->
+                    More info on dropdowns:
+                      - http://docs.shopify.com/manual/your-website/navigation/create-drop-down-menu
+                  {% endcomment %}
+                  {% assign child_list_handle = link.title | handleize %}
+                  {% if linklists[child_list_handle].links != blank %}
+                    <li class="site-nav--has-dropdown{% if link.active %} site-nav--active{% endif %}" aria-haspopup="true">
+                      <a href="{{ link.url }}" class="site-nav__link">
+                        {{ link.title }}
+                      </a>
+                      <ul class="site-nav__dropdown">
+                        {% for childlink in linklists[child_list_handle].links %}
+                          <li{% if childlink.active %} class="site-nav--active"{% endif %}>
+                            <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  {% else %}
+                    <li {% if link.active %}class="site-nav--active"{% endif %}>
+                      <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+              <!-- //site-nav -->
+            </div>
+            <div class="large--hide medium-down--show">
+              <div class="site-nav--mobile">
+                <button type="button" class="icon-fallback-text site-nav__link js-drawer-open-left" aria-controls="NavDrawer" aria-expanded="false">
+                  <span class="icon icon-hamburger" aria-hidden="true"></span>
+                  <span class="fallback-text">{{ 'layout.navigation.menu' | t }}</span>
+                </button>
               </div>
-              <div class="large--hide medium-down--show">
-                <div class="site-nav--mobile">
-                  <button type="button" class="icon-fallback-text site-nav__link js-drawer-open-left" aria-controls="NavDrawer" aria-expanded="false">
-                    <span class="icon icon-hamburger" aria-hidden="true"></span>
-                    <span class="fallback-text">{{ 'layout.navigation.menu' | t }}</span>
-                  </button>
-                </div>
-              </div>
-            </nav>
-          </div>
+            </div>
+          </nav>
+        </div>
 
-          <div class="grid__item six-eighths large--two-quarters">
-            {% comment %}
-              Use the uploaded logo from theme settings if enabled.
-              Site name gets precedence with H1 tag on homepage, div on other pages.
-            {% endcomment %}
-            {% if template == 'index' %}
-              <h1 class="site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
+        <div class="grid__item two-quarters medium--six-eighths">
+          {% comment %}
+            Use the uploaded logo from theme settings if enabled.
+            Site name gets precedence with H1 tag on homepage, div on other pages.
+          {% endcomment %}
+          {% if template == 'index' %}
+            <h1 class="site-header__logo" itemscope itemtype="http://schema.org/Organization">
+          {% else %}
+            <div class="h1 site-header__logo" itemscope itemtype="http://schema.org/Organization">
+          {% endif %}
+            {% if settings.logo_use_image %}
+              <a href="/" itemprop="url" class="site-header__logo-link">
+                {% comment %}<img src="{{ 'tragicsunshine-banner.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">{% endcomment %}
+              </a>
             {% else %}
-              <div class="h1 site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
+              <a href="/" itemprop="url">{{ shop.name }}</a>
             {% endif %}
-              {% if settings.logo_use_image %}
-                <a href="/" itemprop="url" class="site-header__logo-link">
-                  <img src="{{ 'tragicsunshine-banner.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
-                </a>
-              {% else %}
-                <a href="/" itemprop="url">{{ shop.name }}</a>
-              {% endif %}
-            {% if template == 'index' %}
-              </h1>
-            {% else %}
-              </div>
-            {% endif %}
-          </div>
+          {% if template == 'index' %}
+            </h1>
+          {% else %}
+            </div>
+          {% endif %}
+        </div>
 
-          <div class="grid__item one-eighth large--one-quarter text-right">
+        <div class="grid__item one-quarter medium--one-eighth text-right">
+          <nav class="nav-bar nav-right" role="navigation">
             <div class="medium-down--hide">
               {% comment %}
                 Show number of items in the cart and total cost in the /cart link
@@ -241,39 +246,33 @@
                   - #cartCost updates the total cost of the cart
                   - Documentation:  http://shopify.com/timber#ajax-cart
               {% endcomment %}
-              <div>
-                <a href="/cart" class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
-                  <span class="icon icon-cart" aria-hidden="true"></span>
-                  {{ 'layout.cart.title' | t }}
-                  (<span id="CartCount">{{ cart.item_count }}</span>
-                  {{ 'layout.cart.items_count' | t: count: cart.item_count }}
-                  <span id="CartCost">{{ cart.total_price | money }}</span>)
-                </a>
-              </div>
-
-              {% comment %}
-                If customer accounts are enabled, provide login and create account links
-              {% endcomment %}
-              {% if shop.customer_accounts_enabled %}
-              <div>
-                {% if customer %}
-                  {% if customer.first_name != blank %}
-                    {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
-                    {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+              <ul class="site-nav customer-nav" id="AccessibleNav">
+                {% comment %}
+                  If customer accounts are enabled, provide login and create account links
+                {% endcomment %}
+                {% if shop.customer_accounts_enabled %}
+                  {% if customer %}
+                    {% if customer.first_name != blank %}
+                      {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
+                      <li>{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</li>
+                    {% else %}
+                      <li><a href="/account" class="site-nav__link">{{ 'layout.customer.account' | t }}</a></li>
+                    {% endif %}
+                    <li>{{ 'layout.customer.log_out' | t | customer_logout_link }}</li>
                   {% else %}
-                    <a href="/account">{{ 'layout.customer.account' | t }}</a>
-                  {% endif %}
-                  | {{ 'layout.customer.log_out' | t | customer_logout_link }}
-                {% else %}
-                  {{ 'layout.customer.log_in' | t | customer_login_link }}
-                  {% if shop.customer_accounts_optional %}
-                  | {{ 'layout.customer.create_account' | t | customer_register_link }}
+                    <li>{{ 'layout.customer.log_in' | t | customer_login_link }}</li>
                   {% endif %}
                 {% endif %}
-              </div>
-              {% endif %}
-            </div>
 
+                <li {% if link.active %}class="site-nav--active"{% endif %}>
+                  <a href="/cart" class="site-header__cart-toggle site-nav__link js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
+                    <span id="CartCount">{{ cart.item_count }}</span>
+                    {{ 'layout.cart.items_count' | t: count: cart.item_count }}
+                    (<span id="CartCost">{{ cart.total_price | money }}</span>)
+                  </a>
+                </li>
+              </ul>
+            </div>
             <div class="large--hide medium-down--show">
                 <div class="site-nav--mobile">
                   <a href="/cart" class="js-drawer-open-right site-nav__link" aria-controls="CartDrawer" aria-expanded="false">
@@ -284,16 +283,8 @@
                   </a>
                 </div>
             </div>
-
-            {% comment %}
-            Need to find somewhere for the search function to go
-            <div class="site-header__search">
-              {% include 'search-bar' %}
-            </div>
-            {% endcomment %}
-          </div>
+          </nav>
         </div>
-
       </div>
     </header>
 
@@ -385,6 +376,7 @@
   {% comment %}
     Template-specific js
   {% endcomment %}
+  {{ 'slick.min.js' | asset_url | script_tag }}
   <script>
     // init Masonry
     var $grid = $('#masonry-grid').masonry({

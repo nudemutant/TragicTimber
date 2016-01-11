@@ -24,6 +24,23 @@ body {
   }
 }
 
+.half-wrapper {
+  max-width: $siteWidth / 2;
+}
+
+.third-wrapper {
+  max-width: $siteWidth / 3;
+
+  @include at-query ($max, $medium) {
+    max-width: 100%;
+    padding: 0 $gutter 0 ($gutter * 2);
+  }
+}
+
+.quarter-wrapper {
+  max-width: $siteWidth / 4;
+}
+
 .main-content {
   display: block;
   margin-top: 0;
@@ -83,7 +100,7 @@ body {
   }
 
   // Add some top margin to headers from the rich text editor
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3, h4, h5 {
     margin-top: 2em;
 
     &:first-child {
@@ -93,6 +110,10 @@ body {
     a {
       text-decoration: none;
     }
+  }
+
+  h6 {
+    margin-bottom: $gutter / 2;
   }
 
   > div {
@@ -391,7 +412,6 @@ select {
   border: 1px solid $colorBorder;
   max-width: 100%;
   padding: 8px 10px;
-  border-radius: $radius;
 
   &:focus {
     border: 1px solid darken($colorBorder, 10%);
@@ -446,7 +466,7 @@ select {
     image: url('{{ "ico-select.svg" | asset_url }}');
     repeat: no-repeat;
     position: right 10px center;
-    color: transparent;
+    color: #fff;
   }
   padding-right: 28px;
   text-indent: 0.01px;
@@ -497,6 +517,8 @@ select::-ms-expand {
 }
 
 label[for] {
+  font-family: $headerFontStack;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
@@ -722,151 +744,10 @@ label.error {
 }
 
 /*============================================================================
-  #Drawers
-==============================================================================*/
-.js-drawer-open {
-  overflow: hidden;
-  height: 100%;
-}
-
-.drawer {
-  @include promote-layer();
-  display: none;
-  position: fixed;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  top: 0;
-  bottom: 0;
-  padding: 0 ($gutter / 2) ($gutter / 2);
-  max-width: 95%;
-  z-index: $zindexDrawer;
-  color: $colorDrawerText;
-  background-color: $colorDrawers;
-  transition: $drawerTransition;
-
-  a {
-    color: $colorDrawerText;
-
-    &:hover,
-    &:focus {
-      opacity: 0.7;
-    }
-  }
-
-  input,
-  textarea {
-    border-color: $colorDrawerBorder;
-  }
-}
-
-.drawer--left {
-  width: $drawerNavWidth;
-  left: -$drawerNavWidth;
-  border-right: 1px solid $colorDrawerBorder;
-
-  .js-drawer-open-left & {
-    display: block;
-    @include transform(translateX($drawerNavWidth));
-
-    .lt-ie9 & {
-      left: 0;
-    }
-  }
-}
-
-.drawer--right {
-  width: $drawerCartWidth;
-  right: -$drawerCartWidth;
-  border-left: 1px solid $colorDrawerBorder;
-
-  .js-drawer-open-right & {
-    display: block;
-    @include transform(translateX(-$drawerCartWidth));
-
-    .lt-ie9 & {
-      right: 0;
-    }
-  }
-}
-
-#PageContainer {
-  overflow: hidden;
-}
-
-.is-moved-by-drawer {
-  @include promote-layer();
-  transition: $drawerTransition;
-
-  .js-drawer-open-left & {
-    @include transform(translateX($drawerNavWidth));
-  }
-
-  .js-drawer-open-right & {
-    @include transform(translateX(-$drawerCartWidth));
-  }
-}
-
-.drawer__header {
-  display: table;
-  height: 70px;
-  width: 100%;
-  margin-bottom: $gutter / 2;
-  border-bottom: 1px solid $colorDrawerBorder;
-}
-
-.drawer__title,
-.drawer__close {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.drawer__title {
-  width: 100%;
-}
-
-.drawer__close {
-  width: 1%;
-  text-align: center;
-  font-size: em(18px);
-}
-
-.drawer__close button {
-  position: relative;
-  right: -20px;
-  height: 100%;
-  padding: 0 20px;
-  color: inherit;
-
-  &:active,
-  &:focus {
-    background-color: darken($colorDrawers, 5%);
-  }
-}
-
-/*============================================================================
   #Collection Filters
 ==============================================================================*/
 .filter--active {
   font-weight: bold;
-}
-
-/*============================================================================
-  #Breadcrumbs
-==============================================================================*/
-.breadcrumb {
-  margin-bottom: $gutter;
-
-  a,
-  span {
-    display: inline-block;
-    padding: 0 7px 0 0;
-    margin-right: 7px;
-
-    &:first-child {
-      padding-left: 0;
-    }
-  }
 }
 
 /*============================================================================
