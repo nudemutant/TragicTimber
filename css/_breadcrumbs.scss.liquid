@@ -2,13 +2,17 @@
   #Breadcrumbs
 ==============================================================================*/
 .breadcrumb {
-  margin: ($gutter / 2) 0;
+  margin: ($gutter / 2) 0 ($gutter / 5);
   text-align: center;
   font-size: em(10px);
   text-transform: uppercase;
   font-family: $headerFontStack;
   font-weight: $bold;
   letter-spacing: $siteKerning;
+
+  @include at-query ($min, $xlarge) {
+    margin: ($gutter) 0 ($gutter / 2);
+  }
 
   a,
   span {

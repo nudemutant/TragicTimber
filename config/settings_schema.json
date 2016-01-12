@@ -218,6 +218,12 @@
       },
       {
         "type": "text",
+        "id": "social_youtube_link",
+        "label": "Youtube URL",
+        "info": "https://youtube.com/shopify"
+      },
+      {
+        "type": "text",
         "id": "social_flickr_link",
         "label": "Flickr URL",
         "info": "https://flickr.com/shopify"

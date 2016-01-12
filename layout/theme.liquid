@@ -164,7 +164,7 @@
     <header class="site-header" role="banner">
       <div class="full-width-wrapper">
         <div class="grid--full grid--table">
-          <div class="grid__item one-quarter medium--one-eighth">
+          <div class="grid__item one-quarter medium--one-tenth">
             <nav class="nav-bar nav-left" role="navigation">
               <div class="medium-down--hide">
                 {% comment %}
@@ -216,7 +216,7 @@
             </nav>
           </div>
 
-          <div class="grid__item two-quarters medium--six-eighths">
+          <div class="grid__item two-quarters medium--eight-tenths">
             {% comment %}
               Use the uploaded logo from theme settings if enabled.
               Site name gets precedence with H1 tag on homepage, div on other pages.
@@ -240,7 +240,7 @@
             {% endif %}
           </div>
 
-          <div class="grid__item one-quarter medium--one-eighth text-right">
+          <div class="grid__item one-quarter medium--one-tenth text-right">
             <nav class="nav-bar nav-right" role="navigation">
               <div class="medium-down--hide">
                 {% comment %}
@@ -336,6 +336,14 @@
                       <a class="icon-fallback-text" href="{{ settings.social_tumblr_link }}" title="{{ shop.name }} on Tumblr">
                         <span class="icon icon-tumblr" aria-hidden="true"></span>
                         <span class="fallback-text">Tumblr</span>
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if settings.social_youtube_link != blank %}
+                    <li>
+                      <a class="icon-fallback-text" href="{{ settings.social_youtube_link }}" title="{{ shop.name }} on Youtube">
+                        <span class="icon icon-youtube" aria-hidden="true"></span>
+                        <span class="fallback-text">Youtube</span>
                       </a>
                     </li>
                   {% endif %}

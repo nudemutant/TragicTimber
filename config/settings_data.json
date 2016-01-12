@@ -16,8 +16,12 @@
       "footer_newsletter_enable": true,
       "footer_social_enable": true,
       "logo_use_image": true,
-      "social_facebook_link": "",
-      "social_twitter_link": ""
+      "social_facebook_link": "https://www.facebook.com/KevinTongIllustration/",
+      "social_twitter_link": "https://twitter.com/tragicsunshine",
+      "social_instagram_link": "https://www.instagram.com/tragicsunshine/",
+      "social_tumblr_link": "http://tragicsunshine.tumblr.com/",
+      "social_youtube_link": "https://www.youtube.com/user/ktong83",
+      "social_flickr_link": "https://www.flickr.com/photos/emo_force/sets/"
     }
   }
 }

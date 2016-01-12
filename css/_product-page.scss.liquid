@@ -16,6 +16,10 @@
 
 .product-description {
   padding-bottom: $gutter / 2;
+
+  @include at-query ($max, $medium) {
+    max-width: $siteWidth / 3;
+  }
 }
 
 .product-single__variants {
@@ -27,7 +31,6 @@
 }
 
 .product-single__photos {
-  margin-bottom: $gutter;
 }
 
 .product-single__photos,
