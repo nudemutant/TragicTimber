@@ -125,8 +125,7 @@
         {% if customer %}
           <li class="mobile-nav__item">
             {% if customer.first_name != blank %}
-              {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
-              {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+              <a href="/account">Hi, {{ customer.first_name }}</a>
             {% else %}
               <a href="/account">{{ 'layout.customer.account' | t }}</a>
             {% endif %}
@@ -258,8 +257,7 @@
                   {% if shop.customer_accounts_enabled %}
                     {% if customer %}
                       {% if customer.first_name != blank %}
-                        {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
-                        <li>{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</li>
+                        <li><a href="/account">Hi, {{ customer.first_name }}</a></li>
                       {% else %}
                         <li><a href="/account" class="site-nav__link">{{ 'layout.customer.account' | t }}</a></li>
                       {% endif %}
@@ -309,7 +307,7 @@
                 <ul class="inline-list social-icons">
                   {% if settings.social_twitter_link != blank %}
                     <li>
-                      <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter">
+                      <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter" target="blank">
                         <span class="icon icon-twitter" aria-hidden="true"></span>
                         <span class="fallback-text">Twitter</span>
                       </a>
@@ -317,7 +315,7 @@
                   {% endif %}
                   {% if settings.social_facebook_link != blank %}
                     <li>
-                      <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook">
+                      <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook" target="blank">
                         <span class="icon icon-facebook" aria-hidden="true"></span>
                         <span class="fallback-text">Facebook</span>
                       </a>
@@ -325,7 +323,7 @@
                   {% endif %}
                   {% if settings.social_instagram_link != blank %}
                     <li>
-                      <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on Instagram">
+                      <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on Instagram" target="blank">
                         <span class="icon icon-instagram" aria-hidden="true"></span>
                         <span class="fallback-text">Instagram</span>
                       </a>
@@ -333,7 +331,7 @@
                   {% endif %}
                   {% if settings.social_tumblr_link != blank %}
                     <li>
-                      <a class="icon-fallback-text" href="{{ settings.social_tumblr_link }}" title="{{ shop.name }} on Tumblr">
+                      <a class="icon-fallback-text" href="{{ settings.social_tumblr_link }}" title="{{ shop.name }} on Tumblr" target="blank">
                         <span class="icon icon-tumblr" aria-hidden="true"></span>
                         <span class="fallback-text">Tumblr</span>
                       </a>
@@ -341,7 +339,7 @@
                   {% endif %}
                   {% if settings.social_youtube_link != blank %}
                     <li>
-                      <a class="icon-fallback-text" href="{{ settings.social_youtube_link }}" title="{{ shop.name }} on Youtube">
+                      <a class="icon-fallback-text" href="{{ settings.social_youtube_link }}" title="{{ shop.name }} on Youtube" target="blank">
                         <span class="icon icon-youtube" aria-hidden="true"></span>
                         <span class="fallback-text">Youtube</span>
                       </a>
@@ -349,7 +347,7 @@
                   {% endif %}
                   {% if settings.social_flickr_link != blank %}
                     <li>
-                      <a class="icon-fallback-text" href="{{ settings.social_flickr_link }}" title="{{ shop.name }} on Flickr">
+                      <a class="icon-fallback-text" href="{{ settings.social_flickr_link }}" title="{{ shop.name }} on Flickr" target="blank">
                         <span class="icon icon-flickr" aria-hidden="true"></span>
                         <span class="fallback-text">Flickr</span>
                       </a>

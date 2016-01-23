@@ -30,10 +30,10 @@ body {
   @include clearfix();
   max-width: $siteWidth;
   margin: 0 auto;
-  padding: 0 ($gutter / 2);
+  padding: $gutter ($gutter / 2) 0;
 
   @include at-query ($min, $small) {
-    padding: 0 $gutter;
+    padding: $gutter;
   }
 }
 

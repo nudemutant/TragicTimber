@@ -63,7 +63,8 @@ $colorTextBody: {{ settings.color_body_text }};
 $colorBody: $yellowSunshine;
 
 // Border colors
-$colorBorder: {{ settings.color_borders }};
+$colorBorder: $tragicLight;
+//$colorBorder: {{ settings.color_borders }};
 
 // Nav and dropdown link background
 $colorNav: $colorBody;
@@ -93,6 +94,9 @@ $colorDrawers: $tragicDark;
 $colorDrawerBorder: darken($colorDrawers, 5%);
 $colorDrawerText: $yellowSunshine;
 $drawerTransition: all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1);
+
+// Masonry Grid
+$gridBorder: 4px;
 
 // Sizing variables
 $siteWidth: 1180px;
@@ -924,7 +928,7 @@ hr {
   #Breadcrumbs
 ==============================================================================*/
 .breadcrumb {
-  margin: ($gutter / 2) 0 ($gutter / 5);
+  margin: (($gutter / 2)-$gridBorder) 0 ($gutter / 2);
   text-align: center;
   font-size: em(10px);
   text-transform: uppercase;
@@ -932,8 +936,8 @@ hr {
   font-weight: $bold;
   letter-spacing: $siteKerning;
 
-  @include at-query ($min, $xlarge) {
-    margin: ($gutter) 0 ($gutter / 2);
+  @include at-query ($min, $xxlarge) {
+    //margin: (($gutter)-$gridBorder) 0 $gutter;
   }
 
   a,
@@ -943,10 +947,15 @@ hr {
     color: $tragicLight;
   }
 
+  a {
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+
   span {
     &:last-child {
       color: $tragicDark;
-      padding-right: 0;
     }
   }
 }
@@ -1406,6 +1415,8 @@ html input[disabled] {
   #Site Header
 ==============================================================================*/
 .site-header {
+  padding-bottom: $gridBorder;
+
   .grid--table {
     display: table;
     table-layout: fixed;
@@ -1595,11 +1606,9 @@ html input[disabled] {
 /*============================================================================
   #Masonry Grid
 ==============================================================================*/
-$gridBorder: 4px;
 
 .masonry-grid__wrap {
     padding-right: $gridBorder;
-    margin-top: $gridBorder;
 }
 
 .masonry-grid__item {
@@ -2159,10 +2168,10 @@ body {
   @include clearfix();
   max-width: $siteWidth;
   margin: 0 auto;
-  padding: 0 ($gutter / 2);
+  padding: $gutter ($gutter / 2) 0;
 
   @include at-query ($min, $small) {
-    padding: 0 $gutter;
+    padding: $gutter;
   }
 }
 
