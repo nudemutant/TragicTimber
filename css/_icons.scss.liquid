@@ -143,4 +143,14 @@
       }
     }
   }
+
+  @include at-query ($min, $xlarge) {
+    margin-bottom: $gutter / 4;
+
+    li {
+      a {
+        padding: ($gutter / 2) ($gutter / 4);
+      }
+    }
+  }
 }
