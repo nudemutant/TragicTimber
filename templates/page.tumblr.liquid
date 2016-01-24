@@ -1,38 +1,72 @@
 {% raw %}
+
 <script id="tmpl-photo" type="text/x-jsrender">
-    <article id="post-{{:id}}" class="post-{{:type}} masonry-grid__item">
+    <div id="post-{{:id}}" class="post-{{:type}} masonry-grid__item tumblr-card">
         {{if photoset_layout}}
             <ul class="photoset">
-                {{for photos}}<li><img src="{{:~getPhotoURL(#view, 500)}}" /></li>{{/for}}
+                {{for photos}}
+                    <li>
+                        <div class="product-thumbnail__wrap">
+                            <div class="product-thumbnail">
+                                <img src="{{:~getPhotoURL(#view, 500)}}" />
+                                <div class="project-title__wrap">
+                                  <div class="project-title">
+                                    <h2>View this post on Tumblr</h2>
+                                    <span class="icon-fallback-text">
+                                        <span class="icon icon-new-tab" aria-hidden="true"></span>
+                                        <span class="fallback-text">New tab</span>
+                                    </span>
+                                  </div>
+                                  <a href="{{:~root.post_url}}" target="blank"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {{/for}}
             </ul>
         {{else}}
-            <img src="{{for photos}}{{:~getPhotoURL(#view, 500)}}{{/for}}" />
+            <div class="product-thumbnail__wrap">
+                <div class="product-thumbnail">
+                    <img src="{{for photos}}{{:~getPhotoURL(#view, 500)}}{{/for}}" />
+                    <div class="project-title__wrap">
+                      <div class="project-title">
+                        <h2>View this post on Tumblr</h2>
+                        <span class="icon-fallback-text">
+                            <span class="icon icon-new-tab" aria-hidden="true"></span>
+                            <span class="fallback-text">New tab</span>
+                        </span>
+                      </div>
+                      <a href="{{:post_url}}" target="blank"></a>
+                    </div>
+                </div>
+            </div>
         {{/if}}
-        {{:caption}}
-        {{for #data tmpl="#tmpl-metadata"/}}
-    </article>
+        <div class="tubmlr-card__info">
+            {{:caption}}
+        </div>
+    </div>
 </script>
 
 <script id="tmpl-video" type="text/x-jsrender">
-    <article id="post-{{:id}}" class="post-{{:type}} masonry-grid__item">
+    <div id="post-{{:id}}" class="post-{{:type}} masonry-grid__item tumblr-card">
         {{:~getVideoEmbed(#view, 500)}}
-        {{:caption}}
-        {{for #data tmpl="#tmpl-metadata"/}}
-    </article>
+        <div class="tubmlr-card__info">
+            {{:caption}}
+        </div>
+    </div>
 </script>
 
 <script id="tmpl-metadata" type="text/x-jsrender">
-    {{if note_count > 0}}<p><small><a href="{{:post_url}}#notes" target="blank">{{:note_count}} notes</a></small></p>{{/if}}
-    {{if tags}}<ul class="tags">{{for tags tmpl="#tmpl-tag"/}}</ul>{{/if}}
+    {{if note_count > 0}}{{:note_count}} notes{{/if}}
 </script>
 
-<script id="tmpl-tag" type="text/x-jsrender">
-    <li><a href="http://{{:~getHostname()}}/tagged/{{:#data}}" target="blank">{{:#data}}</a></li>
-</script>
 {% endraw %}
 
 <div class="masonry-grid__wrap">
     <div id="masonry-grid">
+        {% comment %}
+            Most recent Tumblr posts will be put here using ajax (limit set in script below)
+        {% endcomment %}
     </div>
 </div>
 
@@ -41,6 +75,7 @@
     var TUMBLR_API_KEY = "Lz3UNMfYsXJKibhh1xZyau5Hg3NAGgNo6Dva7w819RJMVyHpUI";
     var TUMBLR_HOSTNAME = "tragicsunshine.tumblr.com";
     $("#masonry-grid").getTumblrPosts({
-            done: tragicMasonry
+        limit: 25,
+        done: tragicMasonry
     });
 </script>

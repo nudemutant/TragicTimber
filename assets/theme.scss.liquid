@@ -1547,6 +1547,7 @@ html input[disabled] {
 .icon-maestro:before { content: "\6d"; }
 .icon-master:before { content: "\4d"; }
 .icon-minus:before { content: "\e602"; }
+.icon-new-tab:before { content: "\e905"; }
 .icon-paypal:before { content: "\50"; }
 .icon-pinterest:before { content: "\70"; }
 .icon-plus:before { content: "\e605"; }
@@ -2061,6 +2062,7 @@ $navBorderSize: 2px;
 .product-thumbnail__wrap {}
 
 .product-thumbnail {
+    position: relative;
     overflow: hidden;
     margin: 0;
     cursor: pointer;
@@ -2468,6 +2470,7 @@ svg:not(:root) {
 img,
 iframe {
   max-width: 100%;
+  vertical-align: middle;
 }
 
 .video-wrapper {
@@ -3089,5 +3092,54 @@ label.error {
         &.slick-active button {
             background-color: $tragicDark;
         }
+    }
+}
+
+/*============================================================================
+  #Tumblr
+==============================================================================*/
+.tubmlr-card__info {
+    font-size: em(13px);
+    background-color: $tragicDark;
+    color: $yellowSunshine;
+    padding: $gutter / 2;
+    -webkit-transition-duration: $transitionTime;
+    transition-duration: $transitionTime;
+    -webkit-transition-property: color, background-color;
+    transition-property: color, background-color;
+
+    p {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.tumblr-card {
+    &:hover,
+    &:focus {
+        .tubmlr-card__info {
+            color: #ffffff;
+            background-color: darken($tragicDark, 15%);
+        }
+    }
+
+    .project-title {
+        h2 {
+            font-size: em(15px);
+        }
+    }
+
+    .icon {
+        font-size: em(20px);
+    }
+}
+
+.photoset {
+    list-style: none;
+    margin: 0;
+
+    li {
+        margin: 0;
     }
 }

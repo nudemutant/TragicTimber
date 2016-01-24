@@ -1,0 +1,48 @@
+/*============================================================================
+  #Tumblr
+==============================================================================*/
+.tubmlr-card__info {
+    font-size: em(13px);
+    background-color: $tragicDark;
+    color: $yellowSunshine;
+    padding: $gutter / 2;
+    -webkit-transition-duration: $transitionTime;
+    transition-duration: $transitionTime;
+    -webkit-transition-property: color, background-color;
+    transition-property: color, background-color;
+
+    p {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.tumblr-card {
+    &:hover,
+    &:focus {
+        .tubmlr-card__info {
+            color: #ffffff;
+            background-color: darken($tragicDark, 15%);
+        }
+    }
+
+    .project-title {
+        h2 {
+            font-size: em(15px);
+        }
+    }
+
+    .icon {
+        font-size: em(20px);
+    }
+}
+
+.photoset {
+    list-style: none;
+    margin: 0;
+
+    li {
+        margin: 0;
+    }
+}
