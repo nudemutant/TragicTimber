@@ -41,9 +41,26 @@
   {{ "imagesloaded.pkgd.min.js" | asset_url  | script_tag }}
   {{ "jsrender.min.js" | asset_url  | script_tag }}
   {{ "jquery.tumblr-kit.js" | asset_url  | script_tag }}
+
+  <!-- Masonry layout ================================================== -->
   <script>
-      var TUMBLR_API_KEY = "Lz3UNMfYsXJKibhh1xZyau5Hg3NAGgNo6Dva7w819RJMVyHpUI";
-      var TUMBLR_HOSTNAME = "tragicsunshine.tumblr.com";
+    function tragicMasonry() {
+      // init Masonry
+      var $grid = $('#masonry-grid').masonry({
+        itemSelector: ".masonry-grid__item",
+        percentPosition: true,
+        transitionDuration: '0.3s'
+      });
+      // layout Masonry after each image loads
+      $grid.imagesLoaded( function() {
+        $('.site-footer').show();
+        // fade in image thumbnails
+        $('.masonry-grid__item').each(function(i) {
+          $(this).delay((i++) * 25).fadeTo(250, 1); })
+        }).progress( function() {
+        $grid.masonry('layout');
+      });
+    }
   </script>
 
   {% comment %}
@@ -423,24 +440,6 @@
     Template-specific js
   {% endcomment %}
   {{ 'slick.min.js' | asset_url | script_tag }}
-
-  <script>
-    // init Masonry
-    var $grid = $('#masonry-grid').masonry({
-      itemSelector: ".masonry-grid__item",
-      percentPosition: true,
-      transitionDuration: '0.3s'
-    });
-    // layout Masonry after each image loads
-    $grid.imagesLoaded( function() {
-      $('.site-footer').show();
-      // fade in image thumbnails
-      $('.masonry-grid__item').each(function(i) {
-        $(this).delay((i++) * 25).fadeTo(250, 1); })
-      }).progress( function() {
-      $grid.masonry('layout');
-    });
-  </script>
 
   <script>
     {% if resetPassword %}
