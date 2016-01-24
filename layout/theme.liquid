@@ -39,6 +39,12 @@
   {{ 'modernizr.min.js' | asset_url | script_tag }}
   {{ "masonry.pkgd.min.js" | asset_url  | script_tag }}
   {{ "imagesloaded.pkgd.min.js" | asset_url  | script_tag }}
+  {{ "jsrender.min.js" | asset_url  | script_tag }}
+  {{ "jquery.tumblr-kit.js" | asset_url  | script_tag }}
+  <script>
+      var TUMBLR_API_KEY = "Lz3UNMfYsXJKibhh1xZyau5Hg3NAGgNo6Dva7w819RJMVyHpUI";
+      var TUMBLR_HOSTNAME = "tragicsunshine.tumblr.com";
+  </script>
 
   {% comment %}
     If you store has customer accounts disabled, you can remove the following JS file
@@ -417,6 +423,7 @@
     Template-specific js
   {% endcomment %}
   {{ 'slick.min.js' | asset_url | script_tag }}
+
   <script>
     // init Masonry
     var $grid = $('#masonry-grid').masonry({

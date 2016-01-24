@@ -1,0 +1,52 @@
+{% raw %}
+<script id="tmpl-photo" type="text/x-jsrender">
+    <article id="post-{{:id}}" class="post-{{:type}} masonry-grid__item">
+        {{if photoset_layout}}
+            <ul class="photoset">
+                {{for photos}}<li><img src="{{:~getPhotoURL(#view, 500)}}" /></li>{{/for}}
+            </ul>
+        {{else}}
+            <img src="{{for photos}}{{:~getPhotoURL(#view, 500)}}{{/for}}" />
+        {{/if}}
+        {{:caption}}
+        {{for #data tmpl="#tmpl-metadata"/}}
+    </article>
+</script>
+
+<script id="tmpl-video" type="text/x-jsrender">
+    <article id="post-{{:id}}" class="post-{{:type}} masonry-grid__item">
+        {{:~getVideoEmbed(#view, 500)}}
+        {{:caption}}
+        {{for #data tmpl="#tmpl-metadata"/}}
+    </article>
+</script>
+{% endraw %}
+
+<div class="masonry-grid__wrap">
+    <div id="posts">
+    </div>
+</div>
+
+<script>
+    function tumblrMasonry() {
+        // init Masonry
+        var $grid = $('#posts').masonry({
+          itemSelector: ".masonry-grid__item",
+          percentPosition: true,
+          transitionDuration: '0.3s'
+        });
+        // layout Masonry after each image loads
+        $grid.imagesLoaded( function() {
+          $('.site-footer').show();
+          // fade in image thumbnails
+          $('.masonry-grid__item').each(function(i) {
+            $(this).delay((i++) * 25).fadeTo(250, 1); })
+          }).progress( function() {
+          $grid.masonry('layout');
+        });
+    }
+
+    $("#posts").getTumblrPosts({
+            done: tumblrMasonry
+    });
+</script>
