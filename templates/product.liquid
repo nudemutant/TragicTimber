@@ -25,35 +25,11 @@
     <div class="grid product-single">
       <div class="grid__item large--one-half text-center">
 
-        {% comment %}
-        <div class="product-single__photos" id="ProductPhoto">
-          {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
-          <img src="{{ featured_image | img_url: '1024x1024' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
-        </div>
-
-        {% comment %}
-          Create thumbnails if we have more than one product image
-        {% endcomment %}
-        {% if product.images.size > 1 %}
-          <ul class="product-single__thumbnails grid-uniform" id="ProductThumbs">
-
-            {% for image in product.images %}
-              <li class="grid__item one-quarter">
-                <a href="{{ image.src | img_url: 'large' }}" class="product-single__thumbnail">
-                  <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
-                </a>
-              </li>
-            {% endfor %}
-
-          </ul>
-        {% endif %}
-        {% endcomment %}
-
         {% if product.images.size > 1 %}
           <div class="carousel product-single__photos" id="ProductPhoto">
             {% for image in product.images %}
               <div class="carousel-slide">
-                <img data-lazy="{{ image.src | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}" >
+                <img src="{{ image.src | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}" >
               </div>
             {% endfor %}
           </div>
@@ -158,15 +134,41 @@
       addons can override it.
       * E.g. multiple currencies http://docs.shopify.com/manual/configuration/store-customization/currencies-and-translations/currencies/how-to-toggle-between-two-currencies
 {% endcomment %}
+
+<!-- Product Detail Images ================================================== -->
+
+{% if product.images.size > 1 %}
+  {{ 'slick.min.js' | asset_url | script_tag }}
+  <script>
+    var carousel = ".carousel";
+    $(function() {
+      $(carousel).slick({
+        dots: true,
+        infinite: true
+      });
+
+      $(carousel).imagesLoaded(function(){
+        $(carousel).fadeTo(250, 1);
+      });
+    });
+  </script>
+
+{% else %}
+
+  {{ 'jquery.zoom.min.js' | asset_url | script_tag }}
+  <script>
+    $(function(){
+      {% assign zoomed_image = current_variant.featured_image | default: product.featured_image %}
+      $('#ProductPhoto').zoom({
+        url: '{{ zoomed_image | img_url: 'master' }}',
+        on: 'click'
+      });
+    });
+  </script>
+{% endif %}
+
 {{ 'option_selection.js' | shopify_asset_url | script_tag }}
 <script>
-  $(document).ready(function(){
-    $('.carousel').slick({
-      dots: true,
-      infinite: true
-    });
-  });
-
   var selectCallback = function(variant, selector) {
     timber.productPage({
       money_format: "{{ shop.money_format }}",
