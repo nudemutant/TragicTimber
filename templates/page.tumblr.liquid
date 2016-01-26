@@ -76,6 +76,7 @@
     var TUMBLR_HOSTNAME = "tragicsunshine.tumblr.com";
     $("#masonry-grid").getTumblrPosts({
         limit: 25,
-        done: tragicMasonry
-    });
+        done: tragicMasonry,
+        always: showFooter
+    })
 </script>

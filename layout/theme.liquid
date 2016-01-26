@@ -61,6 +61,11 @@
         }).progress( function() {
         $grid.masonry('layout');
       });
+    };
+    function showFooter() {
+      $('.main-content').imagesLoaded( function() {
+        $('.site-footer').fadeTo(350, 1);
+      })
     }
   </script>
 
@@ -341,10 +346,6 @@
       <div class="full-width-wrapper">
         <div class="grid">
 
-          <div class="grid__item text-center">
-            <p class="legal">All content &copy; Kevin Tong {{ 'now' | date: "%Y" }}</p>
-          </div>
-
           {% if settings.footer_newsletter_enable %}
             <div class="grid__item large--one-third push--large--one-third medium--one-half">
               {% comment %}
@@ -357,8 +358,9 @@
 
                 MailChimp newsletter integration and requirement:
                  - http://docs.shopify.com/support/configuration/store-customization/where-do-i-get-my-mailchimp-form-action
-              {% endcomment %}
               <h3>{{ 'layout.footer.newsletter_title' | t }}</h3>
+              {% endcomment %}
+              <h5 class="text-center">Don't miss a drop:</h5>
               {% if settings.newsletter_form_action != blank %}
                 <form action="{{ settings.newsletter_form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="input-group">
                   <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="input-group-field" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
@@ -386,6 +388,10 @@
             </div>
           {% endif %}
 
+          <div class="grid__item text-center">
+            <p class="legal">All content &copy; Kevin Tong {{ 'now' | date: "%Y" }}</p>
+          </div>
+
         </div>
       </div>
     </footer>
@@ -398,13 +404,14 @@
   {% comment %}
     Template-specific js
   {% endcomment %}
-  <script>
-    $(function() {
-      $('.main-content').imagesLoaded( function() {
-        $('.site-footer').fadeTo(350, 1);
+
+  {% unless template == 'page.tumblr' %}
+    <script>
+      $(function() {
+        showFooter();
       });
-    })
-  </script>
+    </script>
+  {% endunless %}
 
   <script>
     {% if resetPassword %}
