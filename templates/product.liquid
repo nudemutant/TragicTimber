@@ -137,33 +137,37 @@
 
 <!-- Product Detail Images ================================================== -->
 
+<script>
+  var productImg = ".product-single__photos";
+  $(function() {
+    $(productImg).imagesLoaded(function(){
+      $(productImg).fadeTo(350, 1);
+    });
+  })
+</script>
+
 {% if product.images.size > 1 %}
   {{ 'slick.min.js' | asset_url | script_tag }}
   <script>
-    var carousel = ".carousel";
     $(function() {
-      $(carousel).slick({
+      $('.product-single__photos').slick({
         dots: true,
         infinite: true
       });
-
-      $(carousel).imagesLoaded(function(){
-        $(carousel).fadeTo(250, 1);
-      });
-    });
+    })
   </script>
 
 {% else %}
 
   {{ 'jquery.zoom.min.js' | asset_url | script_tag }}
   <script>
-    $(function(){
+    $(function() {
       {% assign zoomed_image = current_variant.featured_image | default: product.featured_image %}
-      $('#ProductPhoto').zoom({
+      $('.product-single__photos').zoom({
         url: '{{ zoomed_image | img_url: 'master' }}',
         on: 'click'
       });
-    });
+    })
   </script>
 {% endif %}
 

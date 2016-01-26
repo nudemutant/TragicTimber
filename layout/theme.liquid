@@ -55,10 +55,9 @@
       });
       // layout Masonry after each image loads
       $grid.imagesLoaded( function() {
-        $('.site-footer').show();
         // fade in image thumbnails
         $('.masonry-grid__item').each(function(i) {
-          $(this).delay((i++) * 25).fadeTo(250, 1); })
+          $(this).delay((i++) * 25).fadeTo(350, 1); })
         }).progress( function() {
         $grid.masonry('layout');
       });
@@ -346,7 +345,6 @@
             <p class="legal">All content &copy; Kevin Tong {{ 'now' | date: "%Y" }}</p>
           </div>
 
-          {% comment %}
           {% if settings.footer_newsletter_enable %}
             <div class="grid__item large--one-third push--large--one-third medium--one-half">
               {% comment %}
@@ -387,7 +385,6 @@
 
             </div>
           {% endif %}
-          {% endcomment %}
 
         </div>
       </div>
@@ -401,6 +398,13 @@
   {% comment %}
     Template-specific js
   {% endcomment %}
+  <script>
+    $(function() {
+      $('.main-content').imagesLoaded( function() {
+        $('.site-footer').fadeTo(350, 1);
+      });
+    })
+  </script>
 
   <script>
     {% if resetPassword %}
