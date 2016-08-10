@@ -3,27 +3,21 @@
 <script id="tmpl-photo" type="text/x-jsrender">
     <div id="post-{{:id}}" class="post-{{:type}} masonry-grid__item tumblr-card">
         {{if photoset_layout}}
-            <ul class="photoset">
-                {{for photos}}
-                    <li>
-                        <div class="product-thumbnail__wrap">
-                            <div class="product-thumbnail">
-                                <img src="{{:~getPhotoURL(#view, 500)}}" />
-                                <div class="project-title__wrap">
-                                  <div class="project-title">
-                                    <h2>View this post on Tumblr</h2>
-                                    <span class="icon-fallback-text">
-                                        <span class="icon icon-new-tab" aria-hidden="true"></span>
-                                        <span class="fallback-text">New tab</span>
-                                    </span>
-                                  </div>
-                                  <a href="{{:~root.post_url}}" target="blank"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                {{/for}}
-            </ul>
+            <div class="product-thumbnail__wrap">
+                <div class="product-thumbnail">
+                    <img src="{{for photos[0]}}{{:~getPhotoURL(#view, 500)}}{{/for}}" />
+                    <div class="project-title__wrap">
+                      <div class="project-title">
+                        <h2>View this post on Tumblr</h2>
+                        <span class="icon-fallback-text">
+                            <span class="icon icon-new-tab" aria-hidden="true"></span>
+                            <span class="fallback-text">New tab</span>
+                        </span>
+                      </div>
+                      <a href="{{:~root.post_url}}" target="blank"></a>
+                    </div>
+                </div>
+            </div>
         {{else}}
             <div class="product-thumbnail__wrap">
                 <div class="product-thumbnail">
@@ -70,13 +64,23 @@
     </div>
 </div>
 
+<div class="older-posts">
+    <a class="btn" href="http://tragicsunshine.tumblr.com/" target="blank">See Older Posts</a>
+</div>
+
 <!-- Tumblr API + Masonry layout ================================================== -->
 <script>
     var TUMBLR_API_KEY = "Lz3UNMfYsXJKibhh1xZyau5Hg3NAGgNo6Dva7w819RJMVyHpUI";
     var TUMBLR_HOSTNAME = "tragicsunshine.tumblr.com";
+    function showMore() {
+      $('.main-content').imagesLoaded( function() {
+        $('.older-posts').fadeTo(350, 1);
+      });
+      showFooter();
+    };
     $("#masonry-grid").getTumblrPosts({
         limit: 25,
         done: tragicMasonry,
-        always: showFooter
+        always: showMore
     })
 </script>

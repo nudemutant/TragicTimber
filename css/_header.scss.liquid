@@ -47,6 +47,9 @@
   background-size: cover;
   -moz-background-size: cover;  /* Firefox 3.6 */
   background-position: center;  /* Internet Explorer 7/8 */
+  /* Fixing weird 1px gap in Chrome */
+  background-repeat: no-repeat;
+  margin-top: -1px;
 
   @include at-query ($min, $postSmall) {
     padding-top: 14.4%;  /* 176px/1222px = 0.1440 */

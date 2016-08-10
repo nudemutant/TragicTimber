@@ -1464,6 +1464,9 @@ html input[disabled] {
   background-size: cover;
   -moz-background-size: cover;  /* Firefox 3.6 */
   background-position: center;  /* Internet Explorer 7/8 */
+  /* Fixing weird 1px gap in Chrome */
+  background-repeat: no-repeat;
+  margin-top: -1px;
 
   @include at-query ($min, $postSmall) {
     padding-top: 14.4%;  /* 176px/1222px = 0.1440 */
@@ -1658,7 +1661,7 @@ html input[disabled] {
     float: left;
     padding-left: $gridBorder;
     margin-bottom: $gridBorder;
-    width: 100%;
+    width: 50%;
     opacity: 0;
 
     @include at-query ($min, 450px) {
@@ -1752,6 +1755,7 @@ html input[disabled] {
 .product-single__photos {
   opacity: 0;
   display: inline-block;
+  margin-bottom: $gutter;
 }
 
 .zoomImg {
@@ -1764,6 +1768,7 @@ html input[disabled] {
   a, img {
     display: block;
     margin: 0 auto;
+    max-height: 80vh;
   }
 
   li {
@@ -3157,6 +3162,7 @@ label.error {
     background-color: $tragicDark;
     color: $yellowSunshine;
     padding: $gutter / 2;
+    word-wrap: break-word;
     -webkit-transition-duration: $transitionTime;
     transition-duration: $transitionTime;
     -webkit-transition-property: color, background-color;
@@ -3196,4 +3202,10 @@ label.error {
     li {
         margin: 0;
     }
+}
+
+.older-posts {
+    opacity: 0;
+    text-align: center;
+    margin-top: $gutter * 2;
 }

@@ -207,6 +207,7 @@ timber.productPage = function (options) {
   var $productImage = $('#ProductPhotoImg'),
       $addToCart = $('#AddToCart'),
       $productPrice = $('#ProductPrice'),
+      $variantWeight = $('#VariantWeight'),
       $comparePrice = $('#ComparePrice'),
       $quantityElements = $('.quantity-selector, label + .js-qty'),
       $addToCartText = $('#AddToCartText');
@@ -235,6 +236,12 @@ timber.productPage = function (options) {
 
     // Regardless of stock, update the product price
     $productPrice.html( Shopify.formatMoney(variant.price, moneyFormat) );
+
+    if (variant.weight < 92) {
+      $variantWeight.html( '<div>HELLO WORLD</div>' );
+    } else {
+      $variantWeight.html( 'GOODBYE WORLD' );
+    }
 
     // Also update and show the product's compare price if necessary
     if (variant.compare_at_price > variant.price) {
